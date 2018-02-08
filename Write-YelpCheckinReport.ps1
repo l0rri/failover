@@ -1,4 +1,6 @@
-
+# Yelp_checkin.json parser (Milestone 1, task 1d)
+# CS 451-02 Spring 2018
+# Team "The IT Crowd" (Geilenfeldt, Rink, Williams)
 [CmdletBinding()]
 param (
     # The path (absolute or relative) to the pre-provided yelp_checkin.JSON file.
@@ -14,18 +16,20 @@ param (
     [Parameter(
         ValueFromPipeline = $true,
         ValueFromPipelineByPropertyName = $true,
-        Position = 0
+        Position = 0,
+        HelpMessage = "Provide the path to the pre-generated yelp_checkin.json file. Relative and absolute paths are supported."
     )]
     [String]$CheckinJSONPath = (Join-Path $PSScriptRoot ".\Yelp-CptS451-2018\yelp_checkin.JSON"),
 
     # The path to write a CSV report to, if desired.
     [Parameter(
-        Position = 1
+        Position = 1,
+        HelpMessage = "Provide the path to a CSV file for writing the output of this report to. Relative and absolute paths are supported. To skip creating a report, leave this parameter undefined."
     )]
     [String]
     $CSVReportPath,
 
-    # Suppress "writing" output to the console (i.e. whether or not objects should be returned at all)
+    # Suppress "writing" output to the console (i.e. whether or not objects should be returned from the script vs. being written to disk with -CSVReportPath)
     [Switch]$Quiet
 )
 
