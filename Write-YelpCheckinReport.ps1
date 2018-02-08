@@ -32,18 +32,18 @@ param (
 
 process {
 
-    Write-Verbose "Loading JSON..."
+    Write-Verbose "Loading JSON from `"$($CheckinJSONPath | Split-Path -Leaf)`"..."
 
-    # Retrieve JSON, rehydrate to objects
-    $Checkins = Get-Content $CheckinJSONPath | ConvertFrom-Json
-
-    Write-Verbose "$($CheckinJSONPath | Split-Path -Leaf) loaded."
-
-    # Iterate over all checkin objects
-    $Checkins | ForEach-Object {
+    # Retrieve JSON, rehydrate to objects, then iterate.
+    # The checkin JSON appears to be a bunch of smaller JSON documents concatenated together with linebreaks as delimiters.
+    # Because of this, we can run ConvertFom-Json on each individual line (Get-Content returns an array of strings per line by-default)
+    # and get a little bit better performance.
+    Get-Content $CheckinJSONPath | ForEach-Object {$_ |  ConvertFrom-Json} | ForEach-Object -Process {
 
         # Keep track of our current business/weekly-checkin value (automatic variables don't work in nested loops)
         $Checkin = $_
+
+        Write-Verbose "Processing checkin data for business with ID `"$($Checkin.Business_ID)`"."
     
         # Get all properties in the "Time" structure for this checkin (i.e. all days of the week),
         # extract names, then iterate using the names.
@@ -62,6 +62,7 @@ process {
                 DayOfWeek = $DayOfWeek
                 # The basic process used in the subexpressions below is as follows:
                 #   * Get a range of hours for our chosen time-of-day (X..Y => range operator, a la Python)
+                #     (The range operator returns an array, which can be concatenated with another array using the + operator)
                 #   * For each number in the set of numbers, project the property corresponding to the matching hour
                 #     (e.g. "1" would retrieve $CheckinHours."1:00")
                 #   * Sum all of the projected checkin counts for the hours we specified earlier
@@ -75,23 +76,40 @@ process {
     
         }
     
-    } -End {Write-Verbose "Checkin data processing complete."} | & {
-        Process {
-            If ($CSVReportPath) {
-                $_ | Tee-Object -Variable $Output
-            } Else {
-                $_
+    } -End {Write-Verbose "Checkin data processing complete."} |
+    # Export to CSV - if specified. (Note the hanging pipeline on the line above, 
+    # which means we'll be getting the custom objects we created above piped into this loop.)
+    ForEach-Object -Begin {
+        If ($CSVReportPath) {
+            # Clear the contents of the CSV we'll be writing to.
+            Write-Verbose "Clearing output CSV file..."
+            try {
+                Set-Content -LiteralPath $CSVReportPath -Value $null -Force -ErrorAction Stop    
             }
+            catch [System.IO.IOException] {
+                Write-Error "Failed to clear output CSV: $_"
+            }
+            
+        } Else {
+            Write-Verbose "-CSVReportPath not specified, skipping CSV export."
+        }
+    } -Process {
+        If ($CSVReportPath) {
+            # Append each checkin item to the output CSV
+            $_ | Export-CSV -Append -NoTypeInformation -LiteralPath $CSVReportPath
+        }
+        If (-not $Quiet) {
+            Return $_
+        }
+    } -End {
+        If ($CSVReportPath) {
+            Write-Verbose "CSV Export complete."
         }
     }
 }
 
 end {
-    If ($CSVReportPath) {
-        Write-Verbose "Writing output to `"$CSVReportPath`"..."
-        $Output | Export-CSV -LiteralPath $CSVReportPath -Force
-    } Else {
-        Write-Verbose "CSVReportPath not specified, skipping CSV output."
-    }
+
     Write-Verbose "Complete."
+
 }
