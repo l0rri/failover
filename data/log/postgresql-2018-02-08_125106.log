@@ -1,0 +1,27 @@
+2018-02-08 12:51:06.749 PST [17468] LOG:  database system was shut down at 2018-02-08 12:51:00 PST
+2018-02-08 12:51:07.194 PST [19076] LOG:  database system is ready to accept connections
+2018-02-08 14:07:45.426 PST [20588] ERROR:  column "bname" of relation "business" does not exist
+2018-02-08 14:07:45.426 PST [20588] STATEMENT:  copy business (bName,bState,bCity) FROM 'Z:\milestone1DB.csv' DELIMITER ',' CSV
+2018-02-08 14:08:19.868 PST [20588] ERROR:  column "bname" of relation "business" does not exist
+2018-02-08 14:08:19.868 PST [20588] STATEMENT:  copy business(bName,bState,bCity) FROM 'Z:\milestone1DB.csv' DELIMITER ',' CSV
+2018-02-08 14:09:02.465 PST [20588] ERROR:  column "name" of relation "business" does not exist
+2018-02-08 14:09:02.465 PST [20588] STATEMENT:  copy business(name,state,city) FROM 'Z:\milestone1DB.csv' DELIMITER ',' CSV
+2018-02-08 14:09:50.889 PST [20588] ERROR:  column "bname" of relation "business" does not exist
+2018-02-08 14:09:50.889 PST [20588] STATEMENT:  copy business(bName,bState,bCity) FROM 'Z:\milestone1DB.csv' DELIMITER ',' CSV
+2018-02-08 14:48:04.583 PST [19252] FATAL:  password authentication failed for user "postgress"
+2018-02-08 14:48:04.583 PST [19252] DETAIL:  Role "postgress" does not exist.
+	Connection matched pg_hba.conf line 82: "host    all             all             ::1/128                 md5"
+2018-02-08 14:48:35.144 PST [20676] FATAL:  password authentication failed for user "postgress"
+2018-02-08 14:48:35.144 PST [20676] DETAIL:  Role "postgress" does not exist.
+	Connection matched pg_hba.conf line 82: "host    all             all             ::1/128                 md5"
+2018-02-08 14:48:55.216 PST [19988] FATAL:  database "milestone1db" does not exist
+2018-02-08 14:49:20.575 PST [20204] ERROR:  column "state" does not exist at character 17
+2018-02-08 14:49:20.575 PST [20204] HINT:  Perhaps you meant to reference the column "business.b_state".
+2018-02-08 14:49:20.575 PST [20204] STATEMENT:  SELECT distinct state FROM business ORDER BY state
+2018-02-08 14:50:09.997 PST [19864] ERROR:  column "name" does not exist at character 8
+2018-02-08 14:50:09.997 PST [19864] HINT:  Perhaps you meant to reference the column "business.b_name".
+2018-02-08 14:50:09.997 PST [19864] STATEMENT:  SELECT name,state FROM business WHERE state =IL        
+2018-02-08 14:50:35.098 PST [19480] ERROR:  column "az" does not exist at character 52
+2018-02-08 14:50:35.098 PST [19480] STATEMENT:  SELECT b_name,b_state FROM business WHERE b_state =AZ        
+2018-02-08 14:51:49.716 PST [18628] ERROR:  column "az" does not exist at character 52
+2018-02-08 14:51:49.716 PST [18628] STATEMENT:  SELECT b_name,b_state FROM business WHERE b_state =AZ        
