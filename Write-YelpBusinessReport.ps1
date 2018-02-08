@@ -38,15 +38,15 @@ process {
     Write-Verbose "Loading JSON from `"$($BusinessJSONPath | Split-Path -Leaf)`"..."
 
     # Retrieve JSON, rehydrate to objects, then iterate.
-    # The checkin JSON appears to be a bunch of smaller JSON documents concatenated together with linebreaks as delimiters.
-    # Because of this, we can run ConvertFom-Json on each individual line (Get-Content returns an array of strings per line by-default)
+    # The business JSON appears to be a bunch of smaller JSON documents concatenated together with linebreaks as delimiters.
+    # Because of this, we can run ConvertFrom-Json on each individual line (Get-Content returns an array of strings per line by-default)
     # and get a little bit better performance.
     Get-Content $BusinessJSONPath | ForEach-Object {$_ |  ConvertFrom-Json} | ForEach-Object -Process {
 
         # Keep track of our current business structure (automatic variables don't work in nested loops)
         $Business = $_
 
-        Write-Verbose "Processing checkin data for business with ID `"$($Business.Business_ID)`"."
+        Write-Verbose "Processing data for business with ID `"$($Business.Business_ID)`"."
 
         $_ | Select-Object -ExcludeProperty "Neighborhood","Categories","Hours","Attributes" -Property @(
             "*" # Pull in all properties from the original object

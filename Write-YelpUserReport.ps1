@@ -38,15 +38,15 @@ process {
     Write-Verbose "Loading JSON from `"$($UserJSONPath | Split-Path -Leaf)`"..."
 
     # Retrieve JSON, rehydrate to objects, then iterate.
-    # The checkin JSON appears to be a bunch of smaller JSON documents concatenated together with linebreaks as delimiters.
-    # Because of this, we can run ConvertFom-Json on each individual line (Get-Content returns an array of strings per line by-default)
+    # The user JSON appears to be a bunch of smaller JSON documents concatenated together with linebreaks as delimiters.
+    # Because of this, we can run ConvertFrom-Json on each individual line (Get-Content returns an array of strings per line by-default)
     # and get a little bit better performance.
     Get-Content $UserJSONPath | ForEach-Object {$_ |  ConvertFrom-Json} | ForEach-Object -Process {
 
         # Keep track of our current user structure (automatic variables don't work in nested loops)
         $User = $_
 
-        Write-Verbose "Processing checkin data for user with ID `"$($User.User_ID)`"."
+        Write-Verbose "Processing data for user with ID `"$($User.User_ID)`"."
 
         $_ | Select-Object -ExcludeProperty "Compliment_*","Elite","Friends" -Property @(
             "*" # Pull in all properties from the original object

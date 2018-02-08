@@ -40,7 +40,7 @@ process {
 
     # Retrieve JSON, rehydrate to objects, then iterate.
     # The checkin JSON appears to be a bunch of smaller JSON documents concatenated together with linebreaks as delimiters.
-    # Because of this, we can run ConvertFom-Json on each individual line (Get-Content returns an array of strings per line by-default)
+    # Because of this, we can run ConvertFrom-Json on each individual line (Get-Content returns an array of strings per line by-default)
     # and get a little bit better performance.
     Get-Content $CheckinJSONPath | ForEach-Object {$_ |  ConvertFrom-Json} | ForEach-Object -Process {
 
