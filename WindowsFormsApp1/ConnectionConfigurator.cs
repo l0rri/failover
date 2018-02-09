@@ -16,10 +16,13 @@ namespace WindowsFormsApp1
 
         public ConnectionConfigurator(string ConnectionString) : this()
         {
+            previousConnString = ConnectionString;
             CSBuilder = new Npgsql.NpgsqlConnectionStringBuilder(ConnectionString);
+            
         }
 
         private Npgsql.NpgsqlConnectionStringBuilder CSBuilder;
+        private string previousConnString;
         public ConnectionConfigurator()
         {
             CSBuilder = new Npgsql.NpgsqlConnectionStringBuilder();
@@ -75,6 +78,19 @@ namespace WindowsFormsApp1
         private void PasswordTextbox_TextChanged(object sender, EventArgs e)
         {
             CSBuilder.Password = PasswordTextbox.Text;
+        }
+
+        private void ConnectionConfigurator_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if ((previousConnString != "") && (previousConnString != null))
+            {
+                ConnectionStringResult = previousConnString;
+
+            } else if ((e.CloseReason == CloseReason.None || e.CloseReason == CloseReason.UserClosing) && (ConnectionStringResult == "" || ConnectionStringResult == null)) {
+
+                e.Cancel = true;
+
+            }
         }
     }
 }

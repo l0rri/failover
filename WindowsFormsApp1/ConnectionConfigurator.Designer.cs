@@ -52,8 +52,9 @@
             // 
             // CancelButton
             // 
+            this.CancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.CancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.CancelButton.Location = new System.Drawing.Point(468, 173);
+            this.CancelButton.Location = new System.Drawing.Point(412, 8);
             this.CancelButton.Name = "CancelButton";
             this.CancelButton.Size = new System.Drawing.Size(75, 23);
             this.CancelButton.TabIndex = 0;
@@ -63,7 +64,8 @@
             // 
             // OKButton
             // 
-            this.OKButton.Location = new System.Drawing.Point(387, 173);
+            this.OKButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.OKButton.Location = new System.Drawing.Point(331, 8);
             this.OKButton.Name = "OKButton";
             this.OKButton.Size = new System.Drawing.Size(75, 23);
             this.OKButton.TabIndex = 1;
@@ -82,12 +84,15 @@
             // 
             // SettingsModeTabs
             // 
+            this.SettingsModeTabs.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.SettingsModeTabs.Controls.Add(this.BasicTab);
             this.SettingsModeTabs.Controls.Add(this.AdvancedTab);
-            this.SettingsModeTabs.Location = new System.Drawing.Point(18, 30);
+            this.SettingsModeTabs.Location = new System.Drawing.Point(16, 37);
             this.SettingsModeTabs.Name = "SettingsModeTabs";
             this.SettingsModeTabs.SelectedIndex = 0;
-            this.SettingsModeTabs.Size = new System.Drawing.Size(525, 137);
+            this.SettingsModeTabs.Size = new System.Drawing.Size(471, 182);
             this.SettingsModeTabs.TabIndex = 9;
             // 
             // BasicTab
@@ -96,7 +101,7 @@
             this.BasicTab.Location = new System.Drawing.Point(4, 22);
             this.BasicTab.Name = "BasicTab";
             this.BasicTab.Padding = new System.Windows.Forms.Padding(3);
-            this.BasicTab.Size = new System.Drawing.Size(517, 111);
+            this.BasicTab.Size = new System.Drawing.Size(463, 156);
             this.BasicTab.TabIndex = 0;
             this.BasicTab.Text = "Basic";
             this.BasicTab.UseVisualStyleBackColor = true;
@@ -114,22 +119,26 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(3, 3);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(511, 105);
+            this.panel1.Size = new System.Drawing.Size(457, 150);
             this.panel1.TabIndex = 0;
             // 
             // HostnameTextbox
             // 
+            this.HostnameTextbox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.HostnameTextbox.Location = new System.Drawing.Point(65, 3);
             this.HostnameTextbox.Name = "HostnameTextbox";
-            this.HostnameTextbox.Size = new System.Drawing.Size(443, 20);
+            this.HostnameTextbox.Size = new System.Drawing.Size(389, 20);
             this.HostnameTextbox.TabIndex = 4;
             this.HostnameTextbox.TextChanged += new System.EventHandler(this.HostnameTextbox_TextChanged);
             // 
             // DBTextbox
             // 
+            this.DBTextbox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.DBTextbox.Location = new System.Drawing.Point(65, 29);
             this.DBTextbox.Name = "DBTextbox";
-            this.DBTextbox.Size = new System.Drawing.Size(443, 20);
+            this.DBTextbox.Size = new System.Drawing.Size(389, 20);
             this.DBTextbox.TabIndex = 5;
             this.DBTextbox.TextChanged += new System.EventHandler(this.DBTextbox_TextChanged);
             // 
@@ -144,9 +153,11 @@
             // 
             // UsernameTextbox
             // 
+            this.UsernameTextbox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.UsernameTextbox.Location = new System.Drawing.Point(65, 55);
             this.UsernameTextbox.Name = "UsernameTextbox";
-            this.UsernameTextbox.Size = new System.Drawing.Size(443, 20);
+            this.UsernameTextbox.Size = new System.Drawing.Size(389, 20);
             this.UsernameTextbox.TabIndex = 6;
             this.UsernameTextbox.TextChanged += new System.EventHandler(this.UsernameTextbox_TextChanged);
             // 
@@ -161,9 +172,11 @@
             // 
             // PasswordTextbox
             // 
+            this.PasswordTextbox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.PasswordTextbox.Location = new System.Drawing.Point(65, 81);
             this.PasswordTextbox.Name = "PasswordTextbox";
-            this.PasswordTextbox.Size = new System.Drawing.Size(443, 20);
+            this.PasswordTextbox.Size = new System.Drawing.Size(389, 20);
             this.PasswordTextbox.TabIndex = 7;
             this.PasswordTextbox.UseSystemPasswordChar = true;
             this.PasswordTextbox.TextChanged += new System.EventHandler(this.PasswordTextbox_TextChanged);
@@ -192,27 +205,28 @@
             this.AdvancedTab.Location = new System.Drawing.Point(4, 22);
             this.AdvancedTab.Name = "AdvancedTab";
             this.AdvancedTab.Padding = new System.Windows.Forms.Padding(3);
-            this.AdvancedTab.Size = new System.Drawing.Size(517, 111);
+            this.AdvancedTab.Size = new System.Drawing.Size(463, 156);
             this.AdvancedTab.TabIndex = 1;
             this.AdvancedTab.Text = "Advanced";
             this.AdvancedTab.UseVisualStyleBackColor = true;
             // 
             // propertyGrid1
             // 
+            this.propertyGrid1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.propertyGrid1.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.propertyGrid1.HelpVisible = false;
-            this.propertyGrid1.Location = new System.Drawing.Point(0, 0);
+            this.propertyGrid1.Location = new System.Drawing.Point(3, 3);
             this.propertyGrid1.Name = "propertyGrid1";
-            this.propertyGrid1.Size = new System.Drawing.Size(517, 111);
+            this.propertyGrid1.Size = new System.Drawing.Size(457, 150);
             this.propertyGrid1.TabIndex = 0;
-            this.propertyGrid1.ToolbarVisible = false;
             // 
             // ConnectionConfigurator
             // 
             this.AcceptButton = this.OKButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(555, 208);
+            this.ClientSize = new System.Drawing.Size(499, 231);
             this.Controls.Add(this.SettingsModeTabs);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.OKButton);
@@ -220,6 +234,7 @@
             this.KeyPreview = true;
             this.Name = "ConnectionConfigurator";
             this.Text = "PostgreSQL Connection Settings";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ConnectionConfigurator_FormClosing);
             this.Load += new System.EventHandler(this.ConnectionConfigurator_Load);
             this.SettingsModeTabs.ResumeLayout(false);
             this.BasicTab.ResumeLayout(false);
