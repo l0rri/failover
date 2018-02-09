@@ -14,6 +14,7 @@ namespace WindowsFormsApp1
 {
     public partial class Form1 : Form
     {
+        private string connString;
         public Form1()
         {
             InitializeComponent();
@@ -22,7 +23,16 @@ namespace WindowsFormsApp1
 
         private string buildConnString()
         {
-            return "Host=localhost; Username=postgres; Password=12345; Database = postgres";
+            if (connString == null) {
+
+                var configdialog = new ConnectionConfigurator();
+                configdialog.ShowDialog();
+
+                connString = configdialog.ConnectionStringResult;
+
+            }
+
+            return connString;
         }
 
         public void addStates()
@@ -111,6 +121,14 @@ namespace WindowsFormsApp1
                     conn.Close();
                 }
             }
+        }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            var configdialog = new ConnectionConfigurator(connString);
+            configdialog.ShowDialog();
+
+            connString = configdialog.ConnectionStringResult;
         }
     }
 }
