@@ -1,4 +1,4 @@
-CREATE TABLE Business (
+CREATE TABLE yelp_business (
 	business_id VARCHAR(24) PRIMARY KEY,
 	name VARCHAR(22) NOT NULL,
 	address VARCHAR(32),
@@ -8,17 +8,71 @@ CREATE TABLE Business (
 	is_Open BOOL,
 	stars DECIMAL,
 	review_count INTEGER
-
+	-- still need list of attributes
+	/*
+	List of attributes to include:
+		Accepts Credit Cards
+		Takes Reservations
+		Wheelchair Accessible
+		Outdoor Seating
+		Good for Kids	
+		Good for Groups
+		Delivery
+		Take Out
+		Free Wifi
+		Bike Parking
+	
+		Meal type:
+			Breakfast, brunch, lunch, dinner, dessert, late night
+	
+		Price
+			level 1,2,3,4
+	
+	*/
 )
 
-CREATE TABLE Checkin (
+/* Table excludes attributes listed as a sublist - GoodForMeal & categories */
+CREATE TABLE yelp_attributes (
+	business_id VARCHAR(22),
+	attribute_name VARCHAR(22),
+	attribute_value BOOLEAN,
+	PRIMARY KEY (business_id, attribute_name),
+	FOREIGN KEY (business_id) REFERENCES Business(business_id)
+)
+
+/* Table to include meal type attributes */
+CREATE TABLE yelp_mealattributes (
+	business_id VARCHAR(22),
+	category_name VARCHAR(22), -- should always be "GoodForMeal"
+	attribute_name VARCHAR(22),
+	atribute_value BOOLEAN,
+	PRIMARY KEY (business_id, category_name, attribute_name),
+	FOREIGN KEY (business_id) REFERENCES Business(business_id),
+	FOREIGN KEY (category_name) REFERENCES Attributes(attribute_name)
+	
+)
+
+/* Table to include categories attributes */
+CREATE TABLE yelp_categories (
+	business_id VARCHAR(22),
+	category_name VARCHAR(22), -- should always be "categories"
+	atribute_value VARCHAR(22),
+	PRIMARY KEY (business_id, category_name, attribute_value),
+	FOREIGN KEY (business_id) REFERENCES Business(business_id),
+	FOREIGN KEY (category_name) REFERENCES Attributes(attribute_name)
+	
+)
+
+CREATE TABLE yelp_checkin ( 
 	business_id VARCHAR(22),
 	
 	FOREIGN KEY business_id REFERENCES 
 		Business(business_id)
+	
+	-- rest not used until milestone 3
 )
 
-CREATE TABLE User (
+CREATE TABLE yelp_user (
 	average_stars DECIMAL,
 	cool INTEGER,
 	funny INTEGER,
@@ -41,7 +95,7 @@ CREATE TABLE Review (
 	text LONGTEXT,
 	useful INTEGER,
 	funny INTEGER,
-	cool INTEGER
+	cool INTEGER,
 	
 	FOREIGN KEY business_id REFERENCES
 		Business(business_id),
