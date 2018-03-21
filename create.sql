@@ -61,7 +61,7 @@ CREATE TABLE yelp_mealattributes (
 CREATE TABLE yelp_categories (
 	business_id VARCHAR(22),
 	category_name VARCHAR(22), -- should always be "categories"
-	atribute_value VARCHAR(22),
+	attribute_value VARCHAR(22),
 	PRIMARY KEY (business_id, category_name, attribute_value),
 	FOREIGN KEY (business_id) REFERENCES yelp_business(business_id),
 	FOREIGN KEY (category_name) REFERENCES yelp_attributes(attribute_name)
@@ -71,8 +71,7 @@ CREATE TABLE yelp_categories (
 CREATE TABLE yelp_checkin ( 
 	business_id VARCHAR(22),
 	
-	FOREIGN KEY business_id REFERENCES 
-		yelp_business(business_id)
+	FOREIGN KEY (business_id) REFERENCES yelp_business(business_id)
 	
 	-- rest not used until milestone 3
 )
@@ -85,26 +84,24 @@ CREATE TABLE yelp_user (
 	fans INTEGER,
 	review_count INTEGER,
 	name VARCHAR(22), 
-	user_id(22) PRIMARY KEY,
+	user_id VARCHAR(22) PRIMARY KEY,
 	yelping_since DATE
 	-- Missing list of friends
 )
 
 
 CREATE TABLE yelp_review (
-	business_id VARHCAR(22),
-	review_id VARHCAR(22),
-	user_id VARHCAR(22),
+	business_id VARCHAR(22),
+	review_id VARCHAR(22),
+	user_id VARCHAR(22),
 	stars INTEGER,
 	date DATE,
-	text LONGTEXT,
+	text TEXT,
 	useful INTEGER,
 	funny INTEGER,
 	cool INTEGER,
 	
-	FOREIGN KEY business_id REFERENCES
-		yelp_business(business_id),
-	FOREIGN KEY user_id REFERENCES 
-		yelp_user(user_id)
+	FOREIGN KEY (business_id) REFERENCES yelp_business(business_id),
+	FOREIGN KEY (user_id) REFERENCES yelp_user(user_id)
 	
 )
