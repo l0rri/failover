@@ -21,12 +21,17 @@ CREATE TABLE yelp_business (
 		Take Out
 		Free Wifi
 		Bike Parking
+		
+		RestaurantPriceRange1
+		RestaurantPriceRange2
+		RestaurantPriceRange3
+		RestaurantPriceRange4
 	
 		Meal type:
 			Breakfast, brunch, lunch, dinner, dessert, late night
 	
-		Price
-			level 1,2,3,4
+		Categories
+			*whole bunch of stuff*
 	
 	*/
 )
