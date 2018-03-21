@@ -8,14 +8,17 @@ CREATE TABLE Business (
 	is_Open BOOL,
 	stars DECIMAL,
 	review_count INTEGER
+	-- still need list of attributes
 
 )
 
-CREATE TABLE Checkin (
+CREATE TABLE Checkin ( 
 	business_id VARCHAR(22),
 	
 	FOREIGN KEY business_id REFERENCES 
 		Business(business_id)
+	
+	-- rest not used until milestone 3
 )
 
 CREATE TABLE User (
@@ -41,7 +44,7 @@ CREATE TABLE Review (
 	text LONGTEXT,
 	useful INTEGER,
 	funny INTEGER,
-	cool INTEGER
+	cool INTEGER,
 	
 	FOREIGN KEY business_id REFERENCES
 		Business(business_id),
