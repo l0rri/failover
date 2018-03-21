@@ -89,6 +89,12 @@ CREATE TABLE yelp_user (
 	-- Missing list of friends
 )
 
+CREATE TABLE yelp_friends (
+	user_id VARCHAR(22),
+	friend_id VARCHAR(22),
+	PRIMARY KEY (user_id, friend_id),
+	FOREIGN KEY (user_id) REFERENCES yelp_user(user_id)
+)
 
 CREATE TABLE yelp_review (
 	business_id VARCHAR(22),
