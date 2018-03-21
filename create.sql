@@ -42,7 +42,7 @@ CREATE TABLE yelp_attributes (
 	attribute_name VARCHAR(22),
 	attribute_value BOOLEAN,
 	PRIMARY KEY (business_id, attribute_name),
-	FOREIGN KEY (business_id) REFERENCES Business(business_id)
+	FOREIGN KEY (business_id) REFERENCES yelp_business(business_id)
 )
 
 /* Table to include meal type attributes */
@@ -52,8 +52,8 @@ CREATE TABLE yelp_mealattributes (
 	attribute_name VARCHAR(22),
 	atribute_value BOOLEAN,
 	PRIMARY KEY (business_id, category_name, attribute_name),
-	FOREIGN KEY (business_id) REFERENCES Business(business_id),
-	FOREIGN KEY (category_name) REFERENCES Attributes(attribute_name)
+	FOREIGN KEY (business_id) REFERENCES yelp_business(business_id),
+	FOREIGN KEY (category_name) REFERENCES yelp_attributes(attribute_name)
 	
 )
 
@@ -63,8 +63,8 @@ CREATE TABLE yelp_categories (
 	category_name VARCHAR(22), -- should always be "categories"
 	atribute_value VARCHAR(22),
 	PRIMARY KEY (business_id, category_name, attribute_value),
-	FOREIGN KEY (business_id) REFERENCES Business(business_id),
-	FOREIGN KEY (category_name) REFERENCES Attributes(attribute_name)
+	FOREIGN KEY (business_id) REFERENCES yelp_business(business_id),
+	FOREIGN KEY (category_name) REFERENCES yelp_attributes(attribute_name)
 	
 )
 
@@ -72,7 +72,7 @@ CREATE TABLE yelp_checkin (
 	business_id VARCHAR(22),
 	
 	FOREIGN KEY business_id REFERENCES 
-		Business(business_id)
+		yelp_business(business_id)
 	
 	-- rest not used until milestone 3
 )
@@ -91,7 +91,7 @@ CREATE TABLE yelp_user (
 )
 
 
-CREATE TABLE Review (
+CREATE TABLE yelp_review (
 	business_id VARHCAR(22),
 	review_id VARHCAR(22),
 	user_id VARHCAR(22),
@@ -103,8 +103,8 @@ CREATE TABLE Review (
 	cool INTEGER,
 	
 	FOREIGN KEY business_id REFERENCES
-		Business(business_id),
+		yelp_business(business_id),
 	FOREIGN KEY user_id REFERENCES 
-		User(user_id)
+		yelp_user(user_id)
 	
 )
