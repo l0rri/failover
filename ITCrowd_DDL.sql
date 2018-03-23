@@ -1,4 +1,22 @@
-DROP TABLE yelp_business
+/*
+DROP TABLE yelp_business CASCADE;
+DROP TABLE yelp_checkin CASCADE;
+DROP TABLE yelp_review CASCADE;
+DROP TABLE yelp_business_attributes CASCADE;
+DROP TABLE yelp_ambience_attribset CASCADE;
+DROP TABLE yelp_bestnight_attribset CASCADE;
+DROP TABLE yelp_music_attribset CASCADE;
+DROP TABLE yelp_good_meals_attribset CASCADE;
+DROP TABLE yelp_dietary_restrictions_attribset CASCADE;
+DROP TABLE yelp_hair_specialization_attribset CASCADE;
+DROP TABLE yelp_parking_attribset CASCADE;
+DROP TABLE yelp_business_hours CASCADE;
+DROP TABLE yelp_friends CASCADE;
+DROP TABLE yelp_user CASCADE;
+DROP TABLE yelp_business_categories CASCADE;
+*/
+
+
 CREATE TABLE yelp_business (
 	business_id VARCHAR(22) PRIMARY KEY,
 	name VARCHAR(22) NOT NULL,
@@ -14,33 +32,8 @@ CREATE TABLE yelp_business (
 	numCheckins INTEGER,
 	reviewRating DECIMAL
 	
-	-- still need list of attributes
-	/*
-	List of attributes to include:
-		Accepts Credit Cards
-		Takes Reservations
-		Wheelchair Accessible
-		Outdoor Seating
-		Good for Kids	
-		Good for Groups
-		Delivery
-		Take Out
-		Free Wifi
-		Bike Parking
-		
-		RestaurantPriceRange1
-		RestaurantPriceRange2
-		RestaurantPriceRange3
-		RestaurantPriceRange4
 	
-		Meal type:
-			Breakfast, brunch, lunch, dinner, dessert, late night
-	
-		Categories
-			*whole bunch of stuff*
-	
-	*/
-)
+);
 
 
 /* Table excludes attributes listed as a sublist - GoodForMeal & categories */
@@ -48,7 +41,7 @@ CREATE TABLE yelp_business_attributes (
 	business_id VARCHAR(22),
 	accepts_insurance BOOLEAN,
 	ages_allowed BOOLEAN,
-	alcohol BOOLEAN
+	alcohol BOOLEAN,
 	bike_parking BOOLEAN,
 	accepts_bitcoin BOOLEAN,
 	accepts_creditcard BOOLEAN,
@@ -77,13 +70,12 @@ CREATE TABLE yelp_business_attributes (
 	pricerange3 BOOLEAN,
 	pricerange4 BOOLEAN,
 	has_reservations BOOLEAN,
-	restaurant_delivery BOOLEAN,
 	allows_smoking BOOLEAN,
 	free_wifi BOOLEAN,
 	
 	PRIMARY KEY (business_id),
 	FOREIGN KEY (business_id) REFERENCES yelp_business(business_id)
-)
+);
 
 CREATE TABLE yelp_ambience_attribset (
 	business_id VARCHAR(22), 
@@ -100,8 +92,7 @@ CREATE TABLE yelp_ambience_attribset (
 	PRIMARY KEY(business_id),
 	FOREIGN KEY (business_id) REFERENCES yelp_business(business_id)
 
-)
-
+);
 CREATE TABLE yelp_bestnight_attribset (
 	business_id VARCHAR(22), 
 	sunday BOOLEAN,
@@ -115,7 +106,7 @@ CREATE TABLE yelp_bestnight_attribset (
 	PRIMARY KEY(business_id),
 	FOREIGN KEY (business_id) REFERENCES yelp_business(business_id)
 
-)
+);
 
 CREATE TABLE yelp_music_attribset (
 	business_id VARCHAR(22), 
@@ -130,7 +121,7 @@ CREATE TABLE yelp_music_attribset (
 	PRIMARY KEY(business_id),
 	FOREIGN KEY (business_id) REFERENCES yelp_business(business_id)
 
-)
+);
 
 CREATE TABLE yelp_dietary_restrictions_attribset (
 	business_id VARCHAR(22), 
@@ -145,7 +136,8 @@ CREATE TABLE yelp_dietary_restrictions_attribset (
 	PRIMARY KEY(business_id),
 	FOREIGN KEY (business_id) REFERENCES yelp_business(business_id)
 
-)
+);
+
 
 CREATE TABLE yelp_good_meals_attribset (
 	business_id VARCHAR(22), 
@@ -159,7 +151,8 @@ CREATE TABLE yelp_good_meals_attribset (
 	PRIMARY KEY(business_id),
 	FOREIGN KEY (business_id) REFERENCES yelp_business(business_id)
 
-)
+);
+
 
 CREATE TABLE yelp_hair_specialization_attribset (
 	business_id VARCHAR(22), 
@@ -175,7 +168,8 @@ CREATE TABLE yelp_hair_specialization_attribset (
 	PRIMARY KEY(business_id),
 	FOREIGN KEY (business_id) REFERENCES yelp_business(business_id)
 
-)
+);
+
 
 CREATE TABLE yelp_parking_attribset (
 	business_id VARCHAR(22), 
@@ -188,17 +182,20 @@ CREATE TABLE yelp_parking_attribset (
 	PRIMARY KEY(business_id),
 	FOREIGN KEY (business_id) REFERENCES yelp_business(business_id)
 
-)
+);
+
 
 CREATE TABLE yelp_business_hours (
-	day-of-week DATE,
+	day_of_week DATE,
 	is_open BOOLEAN,
 	business_id VARCHAR(22), 
-	PRIMARY KEY(business_id, day-of-week),
-	FOREIGN KEY(business_id) REFERENCES Business(business_id)
+	PRIMARY KEY(business_id, day_of_week),
+	FOREIGN KEY(business_id) REFERENCES yelp_business(business_id)
 	
 	
-)
+);
+
+
 /* Table to include categories attributes */
 CREATE TABLE yelp_business_categories (
 	business_id VARCHAR(22),
@@ -206,7 +203,7 @@ CREATE TABLE yelp_business_categories (
 	PRIMARY KEY (business_id, category_name),
 	FOREIGN KEY (business_id) REFERENCES yelp_business(business_id)
 	
-)
+);
 
 
 CREATE TABLE yelp_user (
@@ -214,16 +211,17 @@ CREATE TABLE yelp_user (
 	review_count INTEGER,
 	name VARCHAR(22), 
 	user_id VARCHAR(22) PRIMARY KEY,
-	yelping_since DATE,
-	-- friends with?
-)
+	yelping_since DATE
+);
+
 
 CREATE TABLE yelp_friends (
 	user_id VARCHAR(22),
 	friend_id VARCHAR(22),
 	PRIMARY KEY (user_id, friend_id),
 	FOREIGN KEY (user_id) REFERENCES yelp_user(user_id)
-)
+);
+
 
 CREATE TABLE yelp_review (
 	business_id VARCHAR(22),
@@ -239,16 +237,17 @@ CREATE TABLE yelp_review (
 	FOREIGN KEY (business_id) REFERENCES yelp_business(business_id),
 	FOREIGN KEY (user_id) REFERENCES yelp_user(user_id)
 	
-)
+);
+
 
 CREATE TABLE yelp_checkin (
 	business_id VARCHAR(22),
-	day-of-week DATE,
+	day_of_week DATE,
 	morning INTEGER,
 	afternoon INTEGER,
 	evening INTEGER,
 	night INTEGER,
-	PRIMARY KEY(business_id, day-of-week),
+	PRIMARY KEY(business_id, day_of_week),
 	FOREIGN KEY (business_id) REFERENCES yelp_business(business_id)
 
-)
+);
