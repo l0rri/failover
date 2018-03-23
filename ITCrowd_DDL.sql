@@ -42,7 +42,7 @@ CREATE TABLE yelp_business_attributes (
 	business_id VARCHAR(22),
 	accepts_insurance          		BOOLEAN,
 	ages_allowed               		VARCHAR(12),
-	alcohol                   		VARCHAR(12),
+	alcohol                   		VARCHAR(16),
 	bike_parking               		BOOLEAN,
 	business_accepts_bitcoin    	BOOLEAN,
 	business_accepts_credit_cards	BOOLEAN,
@@ -58,10 +58,10 @@ CREATE TABLE yelp_business_attributes (
 	good_for_kids               	BOOLEAN,
 	happy_hour                 		BOOLEAN,
 	has_tv                     		BOOLEAN,
-	noise_level                		VARCHAR(12)
+	noise_level                		VARCHAR(12),
 	open24hours               		BOOLEAN,
 	outdoor_seating            		BOOLEAN,
-	restaurants_attire         		VARCHAR(12)
+	restaurants_attire         		VARCHAR(12),
 	restaurants_counter_service 	BOOLEAN,
 	restaurants_delivery       		BOOLEAN,
 	restaurants_good_for_groups  	BOOLEAN,
@@ -69,7 +69,7 @@ CREATE TABLE yelp_business_attributes (
 	restaurants_reservations   		BOOLEAN,
 	restaurants_table_service   	BOOLEAN,
 	restaurants_take_out        	BOOLEAN,
-	smoking                   		VARCHAR(12)
+	smoking                   		VARCHAR(12),
 	wheelchair_accessible      		BOOLEAN,
 	wi_fi                      		VARCHAR(12),
 	
