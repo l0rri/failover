@@ -19,8 +19,8 @@ DROP TABLE yelp_business_categories CASCADE;
 
 CREATE TABLE yelp_business (
 	business_id VARCHAR(22) PRIMARY KEY,
-	name VARCHAR(22) NOT NULL,
-	address VARCHAR(32),
+	name VARCHAR(64) NOT NULL,
+	address VARCHAR(80),
 	city VARCHAR(24),
 	state VARCHAR(2),
 	postal_code VARCHAR(5),
