@@ -1,19 +1,19 @@
 /*
-DROP TABLE yelp_business CASCADE;
-DROP TABLE yelp_checkin CASCADE;
-DROP TABLE yelp_review CASCADE;
-DROP TABLE yelp_business_attributes CASCADE;
-DROP TABLE yelp_ambience_attribset CASCADE;
-DROP TABLE yelp_bestnight_attribset CASCADE;
-DROP TABLE yelp_music_attribset CASCADE;
-DROP TABLE yelp_good_meals_attribset CASCADE;
-DROP TABLE yelp_dietary_restrictions_attribset CASCADE;
-DROP TABLE yelp_hair_specialization_attribset CASCADE;
-DROP TABLE yelp_parking_attribset CASCADE;
-DROP TABLE yelp_business_hours CASCADE;
-DROP TABLE yelp_friends CASCADE;
-DROP TABLE yelp_user CASCADE;
-DROP TABLE yelp_business_categories CASCADE;
+DROP TABLE IF EXISTS yelp_business CASCADE;
+DROP TABLE IF EXISTS yelp_checkin CASCADE;
+DROP TABLE IF EXISTS yelp_review CASCADE;
+DROP TABLE IF EXISTS yelp_business_attributes CASCADE;
+DROP TABLE IF EXISTS yelp_ambience_attribset CASCADE;
+DROP TABLE IF EXISTS yelp_bestnight_attribset CASCADE;
+DROP TABLE IF EXISTS yelp_music_attribset CASCADE;
+DROP TABLE IF EXISTS yelp_good_meals_attribset CASCADE;
+DROP TABLE IF EXISTS yelp_dietary_restrictions_attribset CASCADE;
+DROP TABLE IF EXISTS yelp_hair_specialization_attribset CASCADE;
+DROP TABLE IF EXISTS yelp_parking_attribset CASCADE;
+DROP TABLE IF EXISTS yelp_business_hours CASCADE;
+DROP TABLE IF EXISTS yelp_friends CASCADE;
+DROP TABLE IF EXISTS yelp_user CASCADE;
+DROP TABLE IF EXISTS yelp_business_categories CASCADE;
 */
 
 
