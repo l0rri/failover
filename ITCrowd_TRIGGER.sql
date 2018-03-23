@@ -1,18 +1,8 @@
- 
-CREATE OR REPLACE FUNCTION updateCheckinCount() RETURNS TRIGGER AS
-'BEGIN
-    UPDATE yelp_business
-        SET numcheckins = numcheckins + NEW.afternoon + NEW.morning + NEW.night + NEW.evening
-        WHERE NEW.business_id = yelp_business.bid;
-    RETURN NEW;
-END' LANGUAGE plpgsql;
+/* 
+	IT Crowd Triggers
+*/
 
-CREATE TRIGGER updateCheckinCount
-AFTER INSERT ON yelp_checkin
-FOR EACH ROW
-EXECUTE PROCEDURE updateCheckinCount();
-
-CREATE OR REPLACE FUNCTION updateReviewCount() RETURNS trigger AS
+CREATE OR REPLACE FUNCTION updateReviewCount() RETURNS TRIGGER AS
 'BEGIN
     UPDATE yelp_business
         SET review_count = review_count + 1,
@@ -26,7 +16,7 @@ AFTER INSERT ON yelp_review
 FOR EACH ROW
 EXECUTE PROCEDURE updateReviewCount();
 
-CREATE OR REPLACE FUNCTION updateRating() RETURNS trigger AS
+CREATE OR REPLACE FUNCTION updateRating() RETURNS TRIGGER AS
 'BEGIN
     UPDATE yelp_business
         SET reviewrating = stars / review_count
@@ -39,5 +29,17 @@ AFTER UPDATE ON yelp_business
 FOR EACH ROW
 EXECUTE PROCEDURE updateRating();	
 		
-		
+		 
+CREATE OR REPLACE FUNCTION updateCheckinCount() RETURNS TRIGGER AS
+'BEGIN
+    UPDATE yelp_business
+        SET numcheckins = numcheckins + NEW.afternoon + NEW.morning + NEW.night + NEW.evening
+        WHERE NEW.business_id = yelp_business.bid;
+    RETURN NEW;
+END' LANGUAGE plpgsql;
+
+CREATE TRIGGER updateCheckinCount
+AFTER INSERT ON yelp_checkin
+FOR EACH ROW
+EXECUTE PROCEDURE updateCheckinCount();
 		
