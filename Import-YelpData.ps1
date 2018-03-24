@@ -301,11 +301,17 @@ $YBusiness = Get-Content (Join-Path $YelpDataPath "yelp_business.json") | Conver
 Write-Verbose "Data import complete."
 
 Write-Verbose "Processing basic business data."
-$YBusiness | ForEach-Object -Begin {
+$YBusiness | ForEach-Object -ErrorAction Stop -Begin {
     Write-Verbose "Starting binary-copy operation to yelp_business table."    
-    $YBusinessCopier = $Connection.BeginBinaryImport("COPY yelp_business (
-        $(($Maps["yelp_business"] | ForEach-Object SN) -join ", ")
-    ) FROM STDIN (FORMAT BINARY)")
+    try {
+        $YBusinessCopier = $Connection.BeginBinaryImport("COPY yelp_business (
+            $(($Maps["yelp_business"] | ForEach-Object SN) -join ", ")
+        ) FROM STDIN (FORMAT BINARY)")
+    }
+    catch {
+        throw "Failed to open binary-copy importer on table yelp_business: $_"
+    }
+    
     $RowCount = 0
 } -Process {
     $Item = $_
@@ -327,11 +333,16 @@ $YBusiness | ForEach-Object -Begin {
 
 Write-Verbose "Processing business simple attribute data."
 # Now, work on simple attributes for those businesses.
-$YBusiness | Where-Object attributes | ForEach-Object -Begin {
-    Write-Verbose "Starting binary-copy operation to yelp_business_attributes table."            
-    $YBusAttribCopier = $Connection.BeginBinaryImport("COPY yelp_business_attributes (
-        $((@("business_id") + ($Maps["yelp_business_attributes"] | ForEach-Object SN)) -join ', ')
-    ) FROM STDIN (FORMAT BINARY)")
+$YBusiness | Where-Object attributes | ForEach-Object -ErrorAction Stop -Begin {
+    Write-Verbose "Starting binary-copy operation to yelp_business_attributes table."
+    try {
+        $YBusAttribCopier = $Connection.BeginBinaryImport("COPY yelp_business_attributes (
+            $((@("business_id") + ($Maps["yelp_business_attributes"] | ForEach-Object SN)) -join ', ')
+        ) FROM STDIN (FORMAT BINARY)")
+    }
+    catch {
+        throw "Failed to open binary-copy importer on table yelp_business_attributes: $_"         
+    }            
     $RowCount = 0
 } -Process {
     $Attrib = $_.attributes
@@ -363,10 +374,15 @@ $AttribSetMaps.GetEnumerator() | ForEach-Object {
     $YBusiness | Where-Object {
         $_.attributes -and $_.attributes.$AttribName
     } | ForEach-Object -Begin {
-        Write-Verbose "Starting binary-copy operation to $MapName table."            
-        $YBusAttribSetCopier = $Connection.BeginBinaryImport("COPY $MapName (
-            $((@("business_id") + ($Maps[$MapName] | ForEach-Object SN)) -join ', ')
-        ) FROM STDIN (FORMAT BINARY)")
+        Write-Verbose "Starting binary-copy operation to $MapName table."
+        try {
+            $YBusAttribSetCopier = $Connection.BeginBinaryImport("COPY $MapName (
+                $((@("business_id") + ($Maps[$MapName] | ForEach-Object SN)) -join ', ')
+            ) FROM STDIN (FORMAT BINARY)")
+        }
+        catch {
+            throw "Failed to open binary-copy importer on table $MapName`: $_"         
+        }            
         $RowCount = 0
     } -Process {
         $FlagSet = $_.attributes.$AttribName
@@ -393,11 +409,16 @@ Write-Verbose "Attribute-set data complete."
 
 Write-Verbose "Processing business categorical data."
 # Now, copy over categories.
-$YBusiness | Where-Object categories | ForEach-Object -Begin {
-    Write-Verbose "Starting binary-copy operation to yelp_business_categories table."    
-    $YBusCategoryCopier = $Connection.BeginBinaryImport("COPY yelp_business_categories (
-        business_id, category_name
-    ) FROM STDIN (FORMAT BINARY)")
+$YBusiness | Where-Object categories | ForEach-Object -ErrorAction Stop -Begin {
+    Write-Verbose "Starting binary-copy operation to yelp_business_categories table."
+    try {
+        $YBusCategoryCopier = $Connection.BeginBinaryImport("COPY yelp_business_categories (
+            business_id, category_name
+        ) FROM STDIN (FORMAT BINARY)")
+    }
+    catch {
+        throw "Failed to open binary-copy importer on table yelp_business_categories: $_"                     
+    }    
     $RowCount = 0
 } -Process {
     $ID = $_.business_id
@@ -417,10 +438,15 @@ $YBusiness | Where-Object categories | ForEach-Object -Begin {
 Write-Verbose "Processing business hours-of-operation data."
 # Finally, copy over the business' hours of operation.
 $YBusiness | ForEach-Object -Begin {
-    Write-Verbose "Starting binary-copy operation to yelp_business_hours table."    
-    $YBusHoursCopier = $Connection.BeginBinaryImport("COPY yelp_business_hours (
-        business_id, day_of_week, open, close
-    ) FROM STDIN (FORMAT BINARY)")
+    Write-Verbose "Starting binary-copy operation to yelp_business_hours table."
+    try {
+        $YBusHoursCopier = $Connection.BeginBinaryImport("COPY yelp_business_hours (
+            business_id, day_of_week, open, close
+        ) FROM STDIN (FORMAT BINARY)")
+    }
+    catch {
+        throw "Failed to open binary-copy importer on table yelp_business_hours: $_"                     
+    }    
     $RowCount = 0
 } -Process {
     $ID = $_.business_id
@@ -449,11 +475,16 @@ Remove-Variable YBusiness
 Write-Verbose "Processing user data."
 # In this case, as the User data is ~10x the size of the Business data, we're going to stream it in.
 # This should minimize memory consumption.
-Get-Content (Join-Path $YelpDataPath "yelp_user.json") | ConvertFrom-Json | ForEach-Object -Begin {
+Get-Content (Join-Path $YelpDataPath "yelp_user.json") | ConvertFrom-Json | ForEach-Object -ErrorAction Stop -Begin {
     Write-Verbose "Starting binary-copy operation to yelp_user table."
-    $YUserCopier = $Connection.BeginBinaryImport("COPY yelp_user (
-        $(($Maps["yelp_user"] | ForEach-Object SN) -join ", ") 
-    ) FROM STDIN (FORMAT BINARY)")
+    try {
+        $YUserCopier = $Connection.BeginBinaryImport("COPY yelp_user (
+            $(($Maps["yelp_user"] | ForEach-Object SN) -join ", ") 
+        ) FROM STDIN (FORMAT BINARY)")
+    }
+    catch {
+        throw "Failed to open binary-copy importer on table yelp_user: $_"                     
+    }
     $RowCount = 0
 } -Process {
     $Item = $_
@@ -477,11 +508,16 @@ Write-Verbose "Processing user-to-user friendship data..."
 # Unfortunately, it does mean we have to read it another time for friend-related data.
 Get-Content (Join-Path $YelpDataPath "yelp_user.json") | ConvertFrom-Json | Where-Object {
     $_.friends.Count -gt 0
-} | ForEach-Object -Begin {
-    Write-Verbose "Starting binary-copy operation to yelp_user table."    
-    $YFriendCopier = $Connection.BeginBinaryImport("COPY yelp_friends (
-        user_id, friend_id
-    ) FROM STDIN (FORMAT BINARY)")
+} | ForEach-Object -ErrorAction Stop -Begin {
+    Write-Verbose "Starting binary-copy operation to yelp_friends table."    
+    try {
+        $YFriendCopier = $Connection.BeginBinaryImport("COPY yelp_friends (
+            user_id, friend_id
+        ) FROM STDIN (FORMAT BINARY)")
+    }
+    catch {
+        throw "Failed to open binary-copy importer on table yelp_friends: $_"        
+    }
     $RowCount = 0    
 } -Process {
     $ID = $_.user_id
@@ -500,11 +536,16 @@ Get-Content (Join-Path $YelpDataPath "yelp_user.json") | ConvertFrom-Json | Wher
 
 Write-Verbose "Processing review data."
 # Stream in the review data, like we did with the users.
-Get-Content (Join-Path $YelpDataPath "yelp_review.json") | ConvertFrom-Json | ForEach-Object -Begin {
+Get-Content (Join-Path $YelpDataPath "yelp_review.json") | ConvertFrom-Json | ForEach-Object -ErrorAction Stop -Begin {
     Write-Verbose "Starting binary-copy operation to yelp_review table."
-    $YReviewCopier = $Connection.BeginBinaryImport("COPY yelp_review (
-        $(($Maps["yelp_review"] | ForEach-Object SN) -join ", ") 
-    ) FROM STDIN (FORMAT BINARY)")
+    try {
+        $YReviewCopier = $Connection.BeginBinaryImport("COPY yelp_review (
+            $(($Maps["yelp_review"] | ForEach-Object SN) -join ", ") 
+        ) FROM STDIN (FORMAT BINARY)")
+    }
+    catch {
+        throw "Failed to open binary-copy importer on table yelp_review: $_"        
+    }
     $RowCount = 0
 } -Process {
     $Item = $_
@@ -527,11 +568,16 @@ Get-Content (Join-Path $YelpDataPath "yelp_review.json") | ConvertFrom-Json | Fo
 # Finally, process checkin data.
 Write-Verbose "Processing external check-in data."
 # We can use the Write-CheckinReport script to generate the statistics we need.
-& $PSScriptRoot\Write-YelpCheckinReport.ps1 -CheckinJSONPath (Join-Path $YelpDataPath "yelp_checkin.json") -Verbose:$false | ForEach-Object -Begin {
+& $PSScriptRoot\Write-YelpCheckinReport.ps1 -CheckinJSONPath (Join-Path $YelpDataPath "yelp_checkin.json") -Verbose:$false | ForEach-Object -ErrorAction Stop -Begin {
     Write-Verbose "Starting binary-copy operation to yelp_checkin table."
-    $YCheckinCopier = $Connection.BeginBinaryImport("COPY yelp_checkin (
-        $(($Maps["yelp_checkin"] | ForEach-Object SN) -join ", ") 
-    ) FROM STDIN (FORMAT BINARY)")
+    try {
+        $YCheckinCopier = $Connection.BeginBinaryImport("COPY yelp_checkin (
+            $(($Maps["yelp_checkin"] | ForEach-Object SN) -join ", ") 
+        ) FROM STDIN (FORMAT BINARY)")
+    }
+    catch {
+        throw "Failed to open binary-copy importer on table yelp_checkin: $_"        
+    }
     $RowCount = 0
 } -Process {
     $Item = $_
