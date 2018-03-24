@@ -241,7 +241,7 @@ CREATE TABLE yelp_review (
 
 CREATE TABLE yelp_checkin (
 	business_id VARCHAR(22),
-	day_of_week DATE,
+	day_of_week VARCHAR(10),
 	morning INTEGER,
 	afternoon INTEGER,
 	evening INTEGER,
