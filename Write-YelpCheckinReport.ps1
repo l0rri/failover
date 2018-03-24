@@ -11,7 +11,7 @@ param (
         } elseif ((Get-Item $_).Extension -ne ".json") {
             throw [ArgumentException]::new("Specified file does not appear to be a JSON document.", "CheckinJSONPath")
         }
-        
+        Return $true
     })]
     [Parameter(
         ValueFromPipeline = $true,
