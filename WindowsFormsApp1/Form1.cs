@@ -112,10 +112,10 @@ namespace WindowsFormsApp1
                 using (var cmd = new NpgsqlCommand())
                 {
                     cmd.Connection = conn;
-                    cmd.CommandText = "SELECT DISTINCT b_city FROM business WHERE b_state='" + bState.SelectedItem.ToString() + "' ORDER BY b_city"; //hmmm
+                    cmd.CommandText = "SELECT DISTINCT category FROM yelp_business_categories,yelp_business.business ON yelp_business.business_id=yelp_business_categories.business_id WHERE postal_code='" + bZip.SelectedItem.ToString() + "'"; //hmmm
                     using (var reader = cmd.ExecuteReader())
                     {
-
+                        //We may need another loop?
                         while (reader.Read())
                         {
                             bCategory.Items.Add(reader.GetString(0));
@@ -171,7 +171,7 @@ namespace WindowsFormsApp1
                     using (var cmd = new NpgsqlCommand())
                     {
                         cmd.Connection = conn;
-                        cmd.CommandText = "SELECT b_name FROM business WHERE b_state ='" + bState.SelectedItem.ToString() + "' AND b_city='" + bCity.SelectedItem.ToString() + "'"; //this too
+                        cmd.CommandText = "SELECT name FROM yelp_business WHERE state ='" + bState.SelectedItem.ToString() + "' AND city='" + bCity.SelectedItem.ToString() + "'"; //this too
                         using (var reader = cmd.ExecuteReader())
                         {
 
