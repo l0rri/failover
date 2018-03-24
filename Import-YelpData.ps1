@@ -22,7 +22,8 @@ param (
                 throw [ArgumentException]::new("Specified folder does not contain the required document `"$_`".", "YelpDataPath")            
             }
         }
-        Remove-Variable Param        
+        Remove-Variable Param
+        Return $true       
     })]
     [Parameter(
         ValueFromPipeline = $true,
