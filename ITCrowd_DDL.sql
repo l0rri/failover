@@ -187,7 +187,8 @@ CREATE TABLE yelp_parking_attribset (
 
 CREATE TABLE yelp_business_hours (
 	day_of_week DATE,
-	is_open BOOLEAN,
+	open TIME,
+	close TIME,
 	business_id VARCHAR(22), 
 	PRIMARY KEY(business_id, day_of_week),
 	FOREIGN KEY(business_id) REFERENCES yelp_business(business_id)
@@ -199,7 +200,7 @@ CREATE TABLE yelp_business_hours (
 /* Table to include categories attributes */
 CREATE TABLE yelp_business_categories (
 	business_id VARCHAR(22),
-	category_name VARCHAR(22), 
+	category_name VARCHAR(32), 
 	PRIMARY KEY (business_id, category_name),
 	FOREIGN KEY (business_id) REFERENCES yelp_business(business_id)
 	
