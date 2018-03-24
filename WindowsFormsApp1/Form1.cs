@@ -112,7 +112,7 @@ namespace WindowsFormsApp1
                 using (var cmd = new NpgsqlCommand())
                 {
                     cmd.Connection = conn;
-                    cmd.CommandText = "SELECT * FROM yelp_business_attribute WHERE business_id='" + bState.SelectedItem.ToString() + "'"; //hmmm
+                    cmd.CommandText = "SELECT DISTINCT category FROM yelp_business_categories,yelp_business.business ON yelp_business.business_id=yelp_business_categories.business_id WHERE postal_code='" + bZip.SelectedItem.ToString() + "'"; //hmmm
                     using (var reader = cmd.ExecuteReader())
                     {
                         //We may need another loop?
