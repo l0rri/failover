@@ -208,7 +208,7 @@ CREATE TABLE yelp_business_categories (
 CREATE TABLE yelp_user (
 	fans INTEGER,
 	review_count INTEGER,
-	name VARCHAR(22), 
+	name VARCHAR(32), 
 	user_id VARCHAR(22) PRIMARY KEY,
 	yelping_since DATE
 );
