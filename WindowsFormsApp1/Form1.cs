@@ -43,7 +43,7 @@ namespace WindowsFormsApp1
                 using (var cmd = new NpgsqlCommand())
                 {
                     cmd.Connection = conn;
-                    cmd.CommandText = "SELECT DISTINCT b_state FROM business ORDER BY b_state";
+                    cmd.CommandText = "SELECT DISTINCT state FROM yelp_business ORDER BY state";
                     using (var reader = cmd.ExecuteReader())
                     {
 
@@ -66,7 +66,7 @@ namespace WindowsFormsApp1
                 using (var cmd = new NpgsqlCommand())
                 {
                     cmd.Connection = conn;
-                    cmd.CommandText = "SELECT DISTINCT b_city FROM business WHERE b_state='" + bState.SelectedItem.ToString() + "' ORDER BY b_city";
+                    cmd.CommandText = "SELECT DISTINCT city FROM yelp_business WHERE state='" + bState.SelectedItem.ToString() + "' ORDER BY city";
                     using (var reader = cmd.ExecuteReader())
                     {
 
@@ -79,6 +79,53 @@ namespace WindowsFormsApp1
                 conn.Close();
             }
         }
+
+        public void addZipcodes(String selectedCity)
+        {
+            bZip.Items.Clear();
+            using (var conn = new NpgsqlConnection(buildConnString()))
+            {
+                conn.Open();
+                using (var cmd = new NpgsqlCommand())
+                {
+                    cmd.Connection = conn;
+                    cmd.CommandText = "SELECT DISTINCT postal_code FROM yelp_business WHERE city='" + bState.SelectedItem.ToString() + "' ORDER BY postal_code";
+                    using (var reader = cmd.ExecuteReader())
+                    {
+
+                        while (reader.Read())
+                        {
+                            bZip.Items.Add(reader.GetString(0));
+                        }
+                    }
+                }
+                conn.Close();
+            }
+        }
+
+        public void addCategories(String selectedCity) //Change this
+        {
+            bCategory.Items.Clear();
+            using (var conn = new NpgsqlConnection(buildConnString()))
+            {
+                conn.Open();
+                using (var cmd = new NpgsqlCommand())
+                {
+                    cmd.Connection = conn;
+                    cmd.CommandText = "SELECT DISTINCT b_city FROM business WHERE b_state='" + bState.SelectedItem.ToString() + "' ORDER BY b_city"; //hmmm
+                    using (var reader = cmd.ExecuteReader())
+                    {
+
+                        while (reader.Read())
+                        {
+                            bCategory.Items.Add(reader.GetString(0));
+                        }
+                    }
+                }
+                conn.Close();
+            }
+        }
+
 
         private void bState_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -95,6 +142,27 @@ namespace WindowsFormsApp1
         {
             if (this.bCity.SelectedIndex > -1)
             {
+                bZip.Items.Clear();
+                addZipcodes(bCity.SelectedItem.ToString());
+
+            }
+        }
+
+        private void bZip_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+            if (this.bZip.SelectedIndex > -1)
+            {
+                bCategory.Items.Clear();
+                addCategories(bZip.SelectedItem.ToString());
+
+            }
+        }
+
+        private void bCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (this.bCategory.SelectedIndex > -1)
+            {
                 //clear previous contents
                 dataGridView1.Rows.Clear();
                 using (var conn = new NpgsqlConnection(buildConnString()))
@@ -103,17 +171,19 @@ namespace WindowsFormsApp1
                     using (var cmd = new NpgsqlCommand())
                     {
                         cmd.Connection = conn;
-                        cmd.CommandText = "SELECT b_name FROM business WHERE b_state ='" + bState.SelectedItem.ToString() + "' AND b_city='" + bCity.SelectedItem.ToString() + "'";
+                        cmd.CommandText = "SELECT b_name FROM business WHERE b_state ='" + bState.SelectedItem.ToString() + "' AND b_city='" + bCity.SelectedItem.ToString() + "'"; //this too
                         using (var reader = cmd.ExecuteReader())
                         {
 
                             while (reader.Read())
                             {
-                            
+
                                 DataGridViewRow row = (DataGridViewRow)dataGridView1.Rows[0].Clone();
                                 row.Cells[0].Value = reader.GetString(0);
                                 row.Cells[1].Value = bState.SelectedItem.ToString();
                                 row.Cells[2].Value = bCity.SelectedItem.ToString();
+                                row.Cells[3].Value = bZip.SelectedItem.ToString();
+                                row.Cells[4].Value = bCategory.SelectedItem.ToString();
                                 dataGridView1.Rows.Add(row);
                             }
                         }
@@ -123,12 +193,20 @@ namespace WindowsFormsApp1
             }
         }
 
+
+
+
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
             var configdialog = new ConnectionConfigurator(connString);
             configdialog.ShowDialog();
 
             connString = configdialog.ConnectionStringResult;
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
