@@ -186,14 +186,12 @@ CREATE TABLE yelp_parking_attribset (
 
 
 CREATE TABLE yelp_business_hours (
-	day_of_week DATE,
+	day_of_week VARCHAR(10),
 	open TIME,
 	close TIME,
 	business_id VARCHAR(22), 
 	PRIMARY KEY(business_id, day_of_week),
-	FOREIGN KEY(business_id) REFERENCES yelp_business(business_id)
-	
-	
+	FOREIGN KEY(business_id) REFERENCES yelp_business(business_id)	
 );
 
 
