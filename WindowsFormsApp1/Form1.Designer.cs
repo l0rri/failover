@@ -107,6 +107,7 @@
             this.bZip.Size = new System.Drawing.Size(142, 21);
             this.bZip.TabIndex = 4;
             this.bZip.Text = "Select ZIP";
+            this.bZip.SelectedIndexChanged += new System.EventHandler(this.bZip_SelectedIndexChanged);
             // 
             // bCategory
             // 
@@ -116,7 +117,7 @@
             this.bCategory.Size = new System.Drawing.Size(499, 21);
             this.bCategory.TabIndex = 5;
             this.bCategory.Text = "Choose a Category";
-            this.bCategory.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
+            this.bCategory.SelectedIndexChanged += new System.EventHandler(this.bCategory_SelectedIndexChanged);
             // 
             // BusinessName
             // 

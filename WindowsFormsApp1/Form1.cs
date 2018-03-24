@@ -89,7 +89,7 @@ namespace WindowsFormsApp1
                 using (var cmd = new NpgsqlCommand())
                 {
                     cmd.Connection = conn;
-                    cmd.CommandText = "SELECT DISTINCT postal_code FROM yelp_business WHERE city='" + bState.SelectedItem.ToString() + "' ORDER BY postal_code";
+                    cmd.CommandText = "SELECT DISTINCT postal_code FROM yelp_business WHERE city='" + bCity.SelectedItem.ToString() + "' ORDER BY postal_code";
                     using (var reader = cmd.ExecuteReader())
                     {
 
@@ -103,7 +103,7 @@ namespace WindowsFormsApp1
             }
         }
 
-        public void addCategories(String selectedCity) //Change this
+        public void addCategories(String selectedZip) //Change this
         {
             bCategory.Items.Clear();
             using (var conn = new NpgsqlConnection(buildConnString()))
@@ -112,7 +112,7 @@ namespace WindowsFormsApp1
                 using (var cmd = new NpgsqlCommand())
                 {
                     cmd.Connection = conn;
-                    cmd.CommandText = "SELECT DISTINCT category FROM yelp_business_categories,yelp_business.business ON yelp_business.business_id=yelp_business_categories.business_id WHERE postal_code='" + bZip.SelectedItem.ToString() + "'"; //hmmm
+                    cmd.CommandText = "SELECT DISTINCT category_name FROM yelp_business_categories,yelp_business WHERE yelp_business.business_id=yelp_business_categories.business_id AND postal_code='" + bZip.SelectedItem.ToString() + "'ORDER BY category_name"; //hmmm
                     using (var reader = cmd.ExecuteReader())
                     {
                         //We may need another loop?
@@ -171,10 +171,9 @@ namespace WindowsFormsApp1
                     using (var cmd = new NpgsqlCommand())
                     {
                         cmd.Connection = conn;
-                        cmd.CommandText = "SELECT name FROM yelp_business WHERE state ='" + bState.SelectedItem.ToString() + "' AND city='" + bCity.SelectedItem.ToString() + "'"; //this too
+                        cmd.CommandText = "SELECT name FROM yelp_business_categories, yelp_business WHERE yelp_business.business_id = yelp_business_categories.business_id AND postal_code='" + bZip.SelectedItem.ToString() + "' AND category_name='" + bCategory.SelectedItem.ToString() + "'"; //this too
                         using (var reader = cmd.ExecuteReader())
-                        {
-
+                        {            
                             while (reader.Read())
                             {
 
@@ -193,9 +192,6 @@ namespace WindowsFormsApp1
             }
         }
 
-
-
-
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
             var configdialog = new ConnectionConfigurator(connString);
@@ -204,9 +200,5 @@ namespace WindowsFormsApp1
             connString = configdialog.ConnectionStringResult;
         }
 
-        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }
