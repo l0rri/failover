@@ -33,13 +33,13 @@
             this.bState = new System.Windows.Forms.ComboBox();
             this.bCity = new System.Windows.Forms.ComboBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.bZip = new System.Windows.Forms.ComboBox();
-            this.bCategory = new System.Windows.Forms.ComboBox();
             this.BusinessName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.State = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.City = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ZIP = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Categories = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bZip = new System.Windows.Forms.ComboBox();
+            this.bCategory = new System.Windows.Forms.ComboBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -83,9 +83,12 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -96,8 +99,46 @@
             this.Categories});
             this.dataGridView1.Location = new System.Drawing.Point(12, 65);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.Size = new System.Drawing.Size(986, 463);
             this.dataGridView1.TabIndex = 2;
+            // 
+            // BusinessName
+            // 
+            this.BusinessName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.BusinessName.HeaderText = "BusinessName";
+            this.BusinessName.Name = "BusinessName";
+            this.BusinessName.ReadOnly = true;
+            this.BusinessName.Width = 102;
+            // 
+            // State
+            // 
+            this.State.HeaderText = "State";
+            this.State.Name = "State";
+            this.State.ReadOnly = true;
+            this.State.Width = 57;
+            // 
+            // City
+            // 
+            this.City.HeaderText = "City";
+            this.City.Name = "City";
+            this.City.ReadOnly = true;
+            this.City.Width = 49;
+            // 
+            // ZIP
+            // 
+            this.ZIP.HeaderText = "ZIP";
+            this.ZIP.Name = "ZIP";
+            this.ZIP.ReadOnly = true;
+            this.ZIP.Width = 49;
+            // 
+            // Categories
+            // 
+            this.Categories.HeaderText = "Categories";
+            this.Categories.Name = "Categories";
+            this.Categories.ReadOnly = true;
+            this.Categories.Width = 82;
             // 
             // bZip
             // 
@@ -118,33 +159,6 @@
             this.bCategory.TabIndex = 5;
             this.bCategory.Text = "Choose a Category";
             this.bCategory.SelectedIndexChanged += new System.EventHandler(this.bCategory_SelectedIndexChanged);
-            // 
-            // BusinessName
-            // 
-            this.BusinessName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.BusinessName.HeaderText = "BusinessName";
-            this.BusinessName.Name = "BusinessName";
-            this.BusinessName.Width = 102;
-            // 
-            // State
-            // 
-            this.State.HeaderText = "State";
-            this.State.Name = "State";
-            // 
-            // City
-            // 
-            this.City.HeaderText = "City";
-            this.City.Name = "City";
-            // 
-            // ZIP
-            // 
-            this.ZIP.HeaderText = "ZIP";
-            this.ZIP.Name = "ZIP";
-            // 
-            // Categories
-            // 
-            this.Categories.HeaderText = "Categories";
-            this.Categories.Name = "Categories";
             // 
             // Form1
             // 

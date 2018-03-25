@@ -173,11 +173,11 @@ namespace WindowsFormsApp1
                         cmd.Connection = conn;
                         cmd.CommandText = "SELECT name FROM yelp_business_categories, yelp_business WHERE yelp_business.business_id = yelp_business_categories.business_id AND postal_code='" + bZip.SelectedItem.ToString() + "' AND category_name='" + bCategory.SelectedItem.ToString() + "'"; //this too
                         using (var reader = cmd.ExecuteReader())
-                        {            
+                        {
+                            dataGridView1.RowTemplate.CreateCells(dataGridView1);            
                             while (reader.Read())
                             {
-
-                                DataGridViewRow row = (DataGridViewRow)dataGridView1.Rows[0].Clone();
+                                DataGridViewRow row = (DataGridViewRow)dataGridView1.RowTemplate.Clone();
                                 row.Cells[0].Value = reader.GetString(0);
                                 row.Cells[1].Value = bState.SelectedItem.ToString();
                                 row.Cells[2].Value = bCity.SelectedItem.ToString();
