@@ -32,18 +32,7 @@ param (
         Position = 0,
         HelpMessage = "Provide the path to the pre-generated yelp_checkin.json file. Relative and absolute paths are supported."
     )]
-    [String]$YelpDataPath = (Join-Path $(If ($PSScriptRoot -eq "") {$PWD} Else {$PSScriptRoot}) "Yelp-CptS451-2018"),
-
-    # The path to write a CSV report to, if desired.
-    [Parameter(
-        Position = 1,
-        HelpMessage = "Provide the path to a CSV file for writing the output of this report to. Relative and absolute paths are supported. To skip creating a report, leave this parameter undefined."
-    )]
-    [String]
-    $CSVReportPath,
-
-    # Suppress "writing" output to the console (i.e. whether or not objects should be returned from the script vs. being written to disk with -CSVReportPath)
-    [Switch]$Quiet
+    [String]$YelpDataPath = (Join-Path $(If ($PSScriptRoot -eq "") {$PWD} Else {$PSScriptRoot}) "Yelp-CptS451-2018")
 )
 # First, import the assemblies we need.
 
