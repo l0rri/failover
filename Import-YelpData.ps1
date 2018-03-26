@@ -32,7 +32,7 @@ param (
         Position = 0,
         HelpMessage = "Provide the path to the pre-generated yelp_checkin.json file. Relative and absolute paths are supported."
     )]
-    [String]$YelpDataPath = (Join-Path $(If ($PSScriptRoot -eq "") {$PWD} Else {$PSScriptRoot}) "Yelp-CptS451-2018")
+    [String]$YelpDataPath
 )
 # First, import the assemblies we need.
 
