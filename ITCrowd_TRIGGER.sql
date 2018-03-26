@@ -44,7 +44,9 @@ CREATE OR REPLACE FUNCTION updateReviewRatingsAndCounts() RETURNS TRIGGER AS $$
 					reviewrating = ((reviewrating * review_count) + ratingdelta) / (review_count + countdelta),
 					review_count = review_count + countdelta
 				WHERE (
-					yelp_business.business_id = COALESCE(newBID, oldBID)
+					yelp_business.business_id = COALESCE(newBID, oldBID) AND
+					countdelta != 0 OR
+					ratingdelta != 0
 				)
 			;
 		ELSE
@@ -151,7 +153,8 @@ CREATE OR REPLACE FUNCTION updateCheckinCount() RETURNS TRIGGER AS $$
 				SET 
 					numcheckins = numcheckins + checkindelta
 				WHERE (
-					yelp_business.business_id = COALESCE(newBID, oldBID)
+					yelp_business.business_id = COALESCE(newBID, oldBID) AND
+					checkindelta != 0
 				)
 			;
 		ELSE
@@ -172,6 +175,7 @@ CREATE OR REPLACE FUNCTION updateCheckinCount() RETURNS TRIGGER AS $$
 					sq
 				WHERE (
 					sq.business_id = yelp_business.business_id
+					numCheckins != sq.newcheckincount
 				)
 			;
 		END IF;
