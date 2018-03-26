@@ -6,7 +6,6 @@ CREATE OR REPLACE FUNCTION updateReviewRatingsAndCounts() RETURNS TRIGGER AS $$
 	DECLARE
 		oldrowcount INTEGER;
 		newrowcount INTEGER;
-		newisopen BOOLEAN;
 		oldBID VARCHAR(22);
 		newBID VARCHAR(22);
 		ratingdelta INTEGER;
@@ -37,12 +36,8 @@ CREATE OR REPLACE FUNCTION updateReviewRatingsAndCounts() RETURNS TRIGGER AS $$
 					SELECT SUM(oldtable.stars) - SUM(newtable.stars) INTO ratingdelta FROM oldtable,newtable;
 					countdelta := 0;
 				WHEN (TG_OP = 'INSERT') THEN
-					IF ( (SELECT is_open INTO newisopen FROM newtable) = FALSE) THEN
-						ROLLBACK;
-					ELSE
 						SELECT SUM(stars) INTO ratingdelta FROM newtable;
 						SELECT COUNT(*) INTO countdelta FROM newtable;
-					END IF;
 			END CASE;
 			UPDATE yelp_business
 				SET 
