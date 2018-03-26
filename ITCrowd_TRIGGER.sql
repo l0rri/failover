@@ -27,7 +27,7 @@ CREATE OR REPLACE FUNCTION updateReviewRatingsAndCounts() RETURNS TRIGGER AS $$
 				SELECT business_id INTO oldBID FROM oldtable;				
 		END CASE;
 		IF (oldrowcount IN (0, 1) AND newrowcount IN (0, 1)) THEN
-			--RAISE NOTICE 'Using single-row optimizations';
+			RAISE NOTICE 'Using single-row optimizations';
 			CASE
 				WHEN (TG_OP = 'DELETE') THEN
 					SELECT SUM(stars) * -1 INTO ratingdelta FROM oldtable;
@@ -45,12 +45,14 @@ CREATE OR REPLACE FUNCTION updateReviewRatingsAndCounts() RETURNS TRIGGER AS $$
 					review_count = review_count + countdelta
 				WHERE (
 					yelp_business.business_id = COALESCE(newBID, oldBID) AND
-					countdelta != 0 OR
-					ratingdelta != 0
+					(
+						countdelta != 0 OR
+						ratingdelta != 0
+					)
 				)
 			;
 		ELSE
-			--RAISE NOTICE 'Using multi-row subquery logic';
+			RAISE NOTICE 'Using multi-row subquery logic';
 			WITH sq AS (
 				SELECT 
 					business_id,
@@ -69,8 +71,10 @@ CREATE OR REPLACE FUNCTION updateReviewRatingsAndCounts() RETURNS TRIGGER AS $$
 					sq
 				WHERE (
 					sq.business_id = yelp_business.business_id AND 
-					yelp_business.reviewrating != sq.newreviewrating OR
-					yelp_business.review_count != sq.newreviewcount
+					(
+						yelp_business.reviewrating != sq.newreviewrating OR
+						yelp_business.review_count != sq.newreviewcount
+					)
 				)
 			;
 		END IF;
@@ -174,7 +178,7 @@ CREATE OR REPLACE FUNCTION updateCheckinCount() RETURNS TRIGGER AS $$
 				FROM
 					sq
 				WHERE (
-					sq.business_id = yelp_business.business_id
+					sq.business_id = yelp_business.business_id AND
 					numCheckins != sq.newcheckincount
 				)
 			;
