@@ -27,6 +27,7 @@ param (
         Return $true       
     })]
     [Parameter(
+        Mandatory = $true,
         ValueFromPipeline = $true,
         ValueFromPipelineByPropertyName = $true,
         Position = 0,
