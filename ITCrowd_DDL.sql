@@ -1,4 +1,13 @@
-/*
+/* 
+	CPT_S 451-02 Spring 2018
+	
+	Team "The IT Crowd" (Geilenfeldt, Rink, Williams)
+	
+	Project Milestone 2, Part 2: DDL table schemas/CREATE TABLE statements
+*/
+
+
+
 DROP TABLE IF EXISTS yelp_business CASCADE;
 DROP TABLE IF EXISTS yelp_checkin CASCADE;
 DROP TABLE IF EXISTS yelp_review CASCADE;
@@ -14,7 +23,7 @@ DROP TABLE IF EXISTS yelp_business_hours CASCADE;
 DROP TABLE IF EXISTS yelp_friends CASCADE;
 DROP TABLE IF EXISTS yelp_user CASCADE;
 DROP TABLE IF EXISTS yelp_business_categories CASCADE;
-*/
+
 
 
 CREATE TABLE yelp_business (
@@ -36,7 +45,7 @@ CREATE TABLE yelp_business (
 );
 
 
-/* Table excludes attributes listed as a sublist - GoodForMeal & categories */
+/* Table excludes attributes listed as a sublist - GoodForMeal/etc. & categories */
 CREATE TABLE yelp_business_attributes (
 	business_id VARCHAR(22),
 	accepts_insurance          		BOOLEAN,

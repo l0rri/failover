@@ -1,6 +1,13 @@
 /* 
-	IT Crowd Triggers
+	CPT_S 451-02 Spring 2018
+	
+	Team "The IT Crowd" (Geilenfeldt, Rink, Williams)
+	
+	Project Milestone 2, Part 6a-b: SQL Pre-COPY triggers
 */
+
+-- This script should be executed BEFORE invoking the bulk-copy script, to allow for (optimized) review count/rating 
+-- calculations immediately after the copy completes.
 
 CREATE OR REPLACE FUNCTION updateReviewRatingsAndCounts() RETURNS TRIGGER AS $$
 	DECLARE

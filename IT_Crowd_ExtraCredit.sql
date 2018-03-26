@@ -1,7 +1,21 @@
+/* 
+	CPT_S 451-02 Spring 2018
+	
+	Team "The IT Crowd" (Geilenfeldt, Rink, Williams)
+	
+	Project Milestone 2, Part 6c: Extra Credit SQL Post-COPY triggers
+*/
+
 CREATE OR REPLACE FUNCTION checkForOpenBusiness() RETURNS TRIGGER AS $$
 	BEGIN
-		IF ( (SELECT DISTINCT is_open FROM yelp_business 
-				WHERE yelp_business.business_id = NEW.business_id ) = FALSE) THEN
+		IF ((
+			SELECT DISTINCT 
+				is_open 
+			FROM 
+				yelp_business 
+			WHERE 
+				yelp_business.business_id = NEW.business_id
+			) = FALSE) THEN
 			RAISE EXCEPTION 'Cannot add a review for a business that is closed.';
 		END IF;
 	
@@ -9,7 +23,7 @@ CREATE OR REPLACE FUNCTION checkForOpenBusiness() RETURNS TRIGGER AS $$
 	END
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER insertReview
+CREATE TRIGGER checkForOpenBusiness
 BEFORE INSERT OR UPDATE ON yelp_review
 FOR EACH ROW
 EXECUTE PROCEDURE checkForOpenBusiness();

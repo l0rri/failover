@@ -1,6 +1,7 @@
-# Yelp data importer (Milestone 2)
 # CS 451-02 Spring 2018
 # Team "The IT Crowd" (Geilenfeldt, Rink, Williams)
+# Milestone 2, Part 3: Yelp Data Importer
+
 [CmdletBinding()]
 param (
     # The path (absolute or relative) to the pre-provided Yelp data folder.
