@@ -6,6 +6,7 @@ CREATE OR REPLACE FUNCTION updateReviewRatingsAndCounts() RETURNS TRIGGER AS $$
 	DECLARE
 		oldrowcount INTEGER;
 		newrowcount INTEGER;
+		newisopen BOOLEAN;
 		oldBID VARCHAR(22);
 		newBID VARCHAR(22);
 		ratingdelta INTEGER;
@@ -36,8 +37,12 @@ CREATE OR REPLACE FUNCTION updateReviewRatingsAndCounts() RETURNS TRIGGER AS $$
 					SELECT SUM(oldtable.stars) - SUM(newtable.stars) INTO ratingdelta FROM oldtable,newtable;
 					countdelta := 0;
 				WHEN (TG_OP = 'INSERT') THEN
-					SELECT SUM(stars) INTO ratingdelta FROM newtable;
-					SELECT COUNT(*) INTO countdelta FROM newtable;
+					IF ( (SELECT is_open INTO newisopen FROM newtable) = FALSE) THEN
+						ROLLBACK;
+					ELSE
+						SELECT SUM(stars) INTO ratingdelta FROM newtable;
+						SELECT COUNT(*) INTO countdelta FROM newtable;
+					END IF;
 			END CASE;
 			UPDATE yelp_business
 				SET 
@@ -81,6 +86,7 @@ CREATE OR REPLACE FUNCTION updateReviewRatingsAndCounts() RETURNS TRIGGER AS $$
 		RETURN NULL;
 	END
 $$ LANGUAGE plpgsql;
+
 
 CREATE TRIGGER RatingsAndCounts_insert
 AFTER INSERT ON yelp_review
@@ -210,7 +216,7 @@ EXECUTE PROCEDURE updateCheckinCount();
 /*
 SET datestyle=ymd;
 INSERT INTO yelp_business 
-	VALUES(1234567,'Tester', '1234 1st st', 'Pullman', 'WA', '99163', true, 0,0,0,0,0,0,0);
+	VALUES(1234567,'Tester', '1234 1st st', 'Pullman', 'WA', '99163', false, 0,0,0,0,0,0,0);
 INSERT INTO yelp_user(user_id)
 	VALUES (9876);
 INSERT INTO yelp_checkin (business_id,day_of_week, morning, afternoon, evening, night)
