@@ -10,35 +10,34 @@ CREATE OR REPLACE FUNCTION updateReviewRatingsAndCounts() RETURNS TRIGGER AS $$
 		newBID VARCHAR(22);
 		ratingdelta INTEGER;
 		countdelta INTEGER;
-	BEGIN
-		
+	BEGIN	
 		CASE 
 			WHEN (TG_OP = 'DELETE') THEN
-				SELECT COUNT(*) INTO oldrowcount FROM oldtable;
+				SELECT COUNT(DISTINCT business_id) INTO oldrowcount FROM oldtable;
 				SELECT business_id INTO oldBID FROM oldtable;
 				newrowcount := 0;
 			WHEN (TG_OP = 'INSERT') THEN
-				SELECT COUNT(*) INTO newrowcount FROM newtable;
+				SELECT COUNT(DISTINCT business_id) INTO newrowcount FROM newtable;
 				SELECT business_id INTO newBID FROM newtable;
 				oldrowcount := 0;
 			WHEN (TG_OP = 'UPDATE') THEN
-				SELECT COUNT(*) INTO oldrowcount FROM oldtable;
-				SELECT COUNT(*) INTO newrowcount FROM newtable;
+				SELECT COUNT(DISTINCT business_id) INTO oldrowcount FROM oldtable;
+				SELECT COUNT(DISTINCT business_id) INTO newrowcount FROM newtable;
 				SELECT business_id INTO newBID FROM newtable;
 				SELECT business_id INTO oldBID FROM oldtable;				
 		END CASE;
 		IF (oldrowcount IN (0, 1) AND newrowcount IN (0, 1)) THEN
-			RAISE NOTICE 'Using single-row optimizations';
+			--RAISE NOTICE 'Using single-row optimizations';
 			CASE
 				WHEN (TG_OP = 'DELETE') THEN
-					SELECT stars * -1 INTO ratingdelta FROM oldtable;
-					countdelta := -1;
+					SELECT SUM(stars) * -1 INTO ratingdelta FROM oldtable;
+					SELECT COUNT(*) * -1 INTO countdelta FROM oldtable;
 				WHEN (TG_OP = 'UPDATE') THEN
-					SELECT oldtable.stars - newtable.stars INTO ratingdelta FROM oldtable,newtable;
+					SELECT SUM(oldtable.stars) - SUM(newtable.stars) INTO ratingdelta FROM oldtable,newtable;
 					countdelta := 0;
 				WHEN (TG_OP = 'INSERT') THEN
-					SELECT stars INTO ratingdelta FROM newtable;
-					countdelta := 1;
+					SELECT SUM(stars) INTO ratingdelta FROM newtable;
+					SELECT COUNT(*) INTO countdelta FROM newtable;
 			END CASE;
 			UPDATE yelp_business
 				SET 
@@ -49,6 +48,7 @@ CREATE OR REPLACE FUNCTION updateReviewRatingsAndCounts() RETURNS TRIGGER AS $$
 				)
 			;
 		ELSE
+			--RAISE NOTICE 'Using multi-row subquery logic';
 			WITH sq AS (
 				SELECT 
 					business_id,
@@ -94,18 +94,107 @@ REFERENCING OLD TABLE AS oldtable
 FOR EACH STATEMENT
 EXECUTE PROCEDURE updateReviewRatingsAndCounts();
 		
-	
-CREATE OR REPLACE FUNCTION updateCheckinCount() RETURNS TRIGGER AS
-'BEGIN
-    UPDATE yelp_business
-        SET numcheckins = numcheckins + NEW.afternoon + NEW.morning + NEW.night + NEW.evening
-        WHERE NEW.business_id = yelp_business.business_id;
-    RETURN NEW;
-END' LANGUAGE plpgsql;
+CREATE OR REPLACE FUNCTION updateCheckinCount() RETURNS TRIGGER AS $$
+	DECLARE
+		oldrowcount INTEGER;
+		newrowcount INTEGER;
+		oldBID VARCHAR(22);
+		newBID VARCHAR(22);
+		checkindelta INTEGER;
+	BEGIN
+		CASE 
+			WHEN (TG_OP = 'DELETE') THEN
+				SELECT COUNT(DISTINCT business_id) INTO oldrowcount FROM oldtable;
+				SELECT business_id INTO oldBID FROM oldtable;
+				newrowcount := 0;
+			WHEN (TG_OP = 'INSERT') THEN
+				SELECT COUNT(DISTINCT business_id) INTO newrowcount FROM newtable;
+				SELECT business_id INTO newBID FROM newtable;
+				oldrowcount := 0;
+			WHEN (TG_OP = 'UPDATE') THEN
+				SELECT COUNT(DISTINCT business_id) INTO oldrowcount FROM oldtable;
+				SELECT COUNT(DISTINCT business_id) INTO newrowcount FROM newtable;
+				SELECT business_id INTO newBID FROM newtable;
+				SELECT business_id INTO oldBID FROM oldtable;				
+		END CASE;
+		IF (oldrowcount IN (0, 1) AND newrowcount IN (0, 1)) THEN
+			--RAISE NOTICE 'Using single-row optimizations';
+			CASE
+				WHEN (TG_OP = 'DELETE') THEN
+					SELECT SUM(
+						morning + 
+						afternoon + 
+						evening + 
+						night
+					) * -1 INTO checkindelta FROM oldtable;
+				WHEN (TG_OP = 'UPDATE') THEN
+					SELECT SUM(
+						oldtable.morning + 
+						oldtable.afternoon + 
+						oldtable.evening + 
+						oldtable.night
+					) - SUM(
+						newtable.morning + 
+						newtable.afternoon + 
+						newtable.evening + 
+						newtable.night
+					) INTO checkindelta FROM oldtable,newtable;
+				WHEN (TG_OP = 'INSERT') THEN
+					SELECT SUM(
+						morning + 
+						afternoon + 
+						evening + 
+						night
+					) INTO checkindelta FROM newtable;
+			END CASE;
+			UPDATE yelp_business
+				SET 
+					numcheckins = numcheckins + checkindelta
+				WHERE (
+					yelp_business.business_id = COALESCE(newBID, oldBID)
+				)
+			;
+		ELSE
+			--RAISE NOTICE 'Using multi-row subquery logic';
+			WITH sq AS (
+				SELECT 
+					business_id,
+					SUM(morning + afternoon + evening + night) AS newcheckincount
+				FROM
+					yelp_checkin
+				GROUP BY
+					business_id
+			)
+			UPDATE yelp_business
+				SET 
+					numCheckins = sq.newcheckincount
+				FROM
+					sq
+				WHERE (
+					sq.business_id = yelp_business.business_id
+				)
+			;
+		END IF;
+		RETURN NULL;
+	END
+$$ LANGUAGE plpgsql;
 
-CREATE TRIGGER updateCheckinCount
-AFTER INSERT OR UPDATE OR DELETE ON yelp_checkin
-FOR EACH ROW
+CREATE TRIGGER CheckinCount_delete
+AFTER DELETE ON yelp_checkin
+REFERENCING OLD TABLE AS oldtable
+FOR EACH STATEMENT
+EXECUTE PROCEDURE updateCheckinCount();
+
+CREATE TRIGGER CheckinCount_update
+AFTER UPDATE ON yelp_checkin
+REFERENCING OLD TABLE AS oldtable NEW TABLE AS newtable
+FOR EACH STATEMENT
+EXECUTE PROCEDURE updateCheckinCount();
+
+CREATE TRIGGER CheckinCount_insert
+AFTER INSERT ON yelp_checkin
+REFERENCING NEW TABLE AS newtable
+FOR EACH STATEMENT
 EXECUTE PROCEDURE updateCheckinCount();
 
 
