@@ -25,12 +25,11 @@ CREATE TABLE yelp_business (
 	state VARCHAR(2),
 	postal_code VARCHAR(5),
 	is_Open BOOLEAN,
-	stars DECIMAL DEFAULT 0,
+	stars DECIMAL,
 	review_count INTEGER,
 	latitude FLOAT,
 	longitude FLOAT,
 	numCheckins INTEGER DEFAULT 0,
-	totalRating DECIMAL DEFAULT 0,
 	reviewRating DECIMAL DEFAULT 0
 	
 	
