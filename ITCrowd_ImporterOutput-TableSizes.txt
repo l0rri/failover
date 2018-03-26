@@ -1,0 +1,72 @@
+VERBOSE: Importing assembly System.Threading.Tasks.Extensions...
+VERBOSE: Import complete.
+VERBOSE: Importing assembly Npgsql...
+VERBOSE: Import complete.
+VERBOSE: Using stored ConnectionString.clixml
+VERBOSE: Opening connection to PostgreSQL.
+VERBOSE: Connection opened successfully.
+VERBOSE: Importing business data.
+VERBOSE: Data import complete.
+VERBOSE: Processing basic business data.
+VERBOSE: Starting binary-copy operation to yelp_business table.
+VERBOSE: Committing copy... [11481 rows]
+VERBOSE: Copy complete.
+VERBOSE: Processing business simple attribute data.
+VERBOSE: Starting binary-copy operation to yelp_business_attributes table.
+VERBOSE: Committing copy... [11481 rows]
+VERBOSE: Copy complete.
+VERBOSE: Processing business flag attribute-set data.
+VERBOSE: Processing attribute-set DietaryRestrictions [yelp_dietary_restrictions_attribset].
+VERBOSE: Starting binary-copy operation to yelp_dietary_restrictions_attribset table.
+VERBOSE: Committing copy... [9 rows]
+VERBOSE: Copy complete.
+VERBOSE: Processing attribute-set Music [yelp_music_attribset].
+VERBOSE: Starting binary-copy operation to yelp_music_attribset table.
+VERBOSE: Committing copy... [682 rows]
+VERBOSE: Copy complete.
+VERBOSE: Processing attribute-set Ambience [yelp_ambience_attribset].
+VERBOSE: Starting binary-copy operation to yelp_ambience_attribset table.
+VERBOSE: Committing copy... [4733 rows]
+VERBOSE: Copy complete.
+VERBOSE: Processing attribute-set HairSpecializesIn [yelp_hair_specialization_attribset].
+VERBOSE: Starting binary-copy operation to yelp_hair_specialization_attribset table.
+VERBOSE: Committing copy... [208 rows]
+VERBOSE: Copy complete.
+VERBOSE: Processing attribute-set GoodForMeal [yelp_good_meals_attribset].
+VERBOSE: Starting binary-copy operation to yelp_good_meals_attribset table.
+VERBOSE: Committing copy... [4823 rows]
+VERBOSE: Copy complete.
+VERBOSE: Processing attribute-set BestNights [yelp_bestnight_attribset].
+VERBOSE: Starting binary-copy operation to yelp_bestnight_attribset table.
+VERBOSE: Committing copy... [592 rows]
+VERBOSE: Copy complete.
+VERBOSE: Processing attribute-set BusinessParking [yelp_parking_attribset].
+VERBOSE: Starting binary-copy operation to yelp_parking_attribset table.
+VERBOSE: Committing copy... [8077 rows]
+VERBOSE: Copy complete.
+VERBOSE: Attribute-set data complete.
+VERBOSE: Processing business categorical data.
+VERBOSE: Starting binary-copy operation to yelp_business_categories table.
+VERBOSE: Committing copy... [11481 rows]
+VERBOSE: Copy complete.
+VERBOSE: Processing business hours-of-operation data.
+VERBOSE: Starting binary-copy operation to yelp_business_hours table.
+VERBOSE: Committing copy... [11481 rows]
+VERBOSE: Copy complete.
+VERBOSE: Processing user data.
+VERBOSE: Starting binary-copy operation to yelp_user table.
+VERBOSE: Committing copy... [192999 rows]
+VERBOSE: Copy complete.
+VERBOSE: Processing user-to-user friendship data...
+VERBOSE: Starting binary-copy operation to yelp_user table.
+VERBOSE: Committing copy... [122903 rows]
+VERBOSE: Copy complete.
+VERBOSE: Processing review data.
+VERBOSE: Starting binary-copy operation to yelp_review table.
+VERBOSE: Committing copy... [416479 rows]
+VERBOSE: Copy complete.
+VERBOSE: Processing external check-in data.
+VERBOSE: Starting binary-copy operation to yelp_checkin table.
+VERBOSE: Committing copy... [67407 rows]
+VERBOSE: Copy complete.
+VERBOSE: Finished.
