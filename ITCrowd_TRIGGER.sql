@@ -221,7 +221,6 @@ INSERT INTO yelp_review
 	VALUES (1234567, 54322, 9876, 1, '2018-03-22','Meh :(',1,1,1);
 SELECT * FROM yelp_business;
 */
-/* Results: reviewcount=2,stars=6,reveiwrating=3.0,numcheckins=2 */
 
 
 
