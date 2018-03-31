@@ -40,7 +40,7 @@ CREATE OR REPLACE FUNCTION updateReviewRatingsAndCounts() RETURNS TRIGGER AS $$
 					SELECT SUM(stars) * -1 INTO ratingdelta FROM oldtable;
 					SELECT COUNT(*) * -1 INTO countdelta FROM oldtable;
 				WHEN (TG_OP = 'UPDATE') THEN
-					SELECT SUM(oldtable.stars) - SUM(newtable.stars) INTO ratingdelta FROM oldtable,newtable;
+					SELECT SUM(newtable.stars) - SUM(oldtable.stars) INTO ratingdelta FROM oldtable,newtable;
 					countdelta := 0;
 				WHEN (TG_OP = 'INSERT') THEN
 					SELECT SUM(stars) INTO ratingdelta FROM newtable;
@@ -142,15 +142,15 @@ CREATE OR REPLACE FUNCTION updateCheckinCount() RETURNS TRIGGER AS $$
 					) * -1 INTO checkindelta FROM oldtable;
 				WHEN (TG_OP = 'UPDATE') THEN
 					SELECT SUM(
-						oldtable.morning + 
-						oldtable.afternoon + 
-						oldtable.evening + 
-						oldtable.night
-					) - SUM(
 						newtable.morning + 
 						newtable.afternoon + 
 						newtable.evening + 
 						newtable.night
+					) - SUM(
+						oldtable.morning + 
+						oldtable.afternoon + 
+						oldtable.evening + 
+						oldtable.night
 					) INTO checkindelta FROM oldtable,newtable;
 				WHEN (TG_OP = 'INSERT') THEN
 					SELECT SUM(
