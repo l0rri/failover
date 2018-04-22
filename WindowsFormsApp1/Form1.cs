@@ -150,10 +150,13 @@ namespace WindowsFormsApp1
 
         private void bZip_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+
             if (this.bZip.SelectedIndex > -1)
             {
                 bCategory.Items.Clear();
+                addCategories(bZip.SelectedItem.ToString());
+
+                listBox1.Items.Clear();
                 addCategories(bZip.SelectedItem.ToString());
 
             }
@@ -200,5 +203,49 @@ namespace WindowsFormsApp1
             connString = configdialog.ConnectionStringResult;
         }
 
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox4_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox10_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
