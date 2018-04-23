@@ -19,6 +19,7 @@ namespace WindowsFormsApp1
         {
             InitializeComponent();
             addStates();
+            adduid();
         }
 
         private string buildConnString()
@@ -56,6 +57,51 @@ namespace WindowsFormsApp1
                 conn.Close();
             }
         }
+
+
+        public void adduid()
+        {
+            using (var conn = new NpgsqlConnection(buildConnString()))
+            {
+                conn.Open();
+                using (var cmd = new NpgsqlCommand())
+                {
+                    cmd.Connection = conn;
+                    cmd.CommandText = "select distinct user_id from yelp_friends order by user_id";
+                    using (var reader = cmd.ExecuteReader())
+                    {
+
+                        while (reader.Read())
+                        {
+                            listBox1.Items.Add(reader.GetString(0));
+                        }
+                        uname.Text = "PLAC 1";
+                    }
+                }
+                conn.Close();
+            }
+        }
+
+        private void popFname()
+        {
+            uname.Text = "PLAC 2";
+            using (var conn = new NpgsqlConnection(buildConnString()))
+            {
+                conn.Open();
+                using (var cmd = new NpgsqlCommand())
+                {
+                    cmd.Connection = conn;
+                    cmd.CommandText = "SELECT name FROM yelp_user WHERE user_id='" + listBox1.SelectedItem.ToString() + "'";
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        uname.Text = "PLAC 2";
+                        uname.Text = reader.GetString(0);
+                    }
+                }
+                conn.Close();
+            }
+        }
+
 
         public void addCities(String selectedState)
         {
@@ -156,9 +202,6 @@ namespace WindowsFormsApp1
                 bCategory.Items.Clear();
                 addCategories(bZip.SelectedItem.ToString());
 
-                listBox1.Items.Clear();
-                addCategories(bZip.SelectedItem.ToString());
-
             }
         }
 
@@ -211,6 +254,17 @@ namespace WindowsFormsApp1
         private void comboBox4_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            uname.Text = "PLAC 2";
+            if (this.listBox1.SelectedIndex > -1)
+            {
+                uname.Clear();
+                popFname();
+
+            }
         }
 
         private void button3_Click(object sender, EventArgs e)
