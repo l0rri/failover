@@ -49,7 +49,7 @@
             this.button3 = new System.Windows.Forms.Button();
             this.comboBox5 = new System.Windows.Forms.ComboBox();
             this.button2 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.sBus = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.checkedListBox2 = new System.Windows.Forms.CheckedListBox();
             this.FilterPrice = new System.Windows.Forms.CheckedListBox();
@@ -65,10 +65,10 @@
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.uvote_funny = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox8 = new System.Windows.Forms.TextBox();
-            this.textBox9 = new System.Windows.Forms.TextBox();
+            this.uvote_useful = new System.Windows.Forms.TextBox();
+            this.uvote_cool = new System.Windows.Forms.TextBox();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
             this.p_uname = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -76,29 +76,24 @@
             this.p_city = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.p_text = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.button7 = new System.Windows.Forms.Button();
+            this.rmFriend = new System.Windows.Forms.Button();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.friend_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.avg_stars = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.yelp_since = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.textBox11 = new System.Windows.Forms.TextBox();
-            this.textBox10 = new System.Windows.Forms.TextBox();
-            this.button8 = new System.Windows.Forms.Button();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.textBox7 = new System.Windows.Forms.TextBox();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.uinfo_stars = new System.Windows.Forms.TextBox();
+            this.uinfo_fans = new System.Windows.Forms.TextBox();
+            this.uinfo_ys = new System.Windows.Forms.TextBox();
+            this.uinfo_name = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.uname = new System.Windows.Forms.TextBox();
             this.listBox1 = new System.Windows.Forms.ListBox();
+            this.uname = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -112,7 +107,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
             this.groupBox7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
-            this.groupBox6.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.SuspendLayout();
@@ -287,7 +281,7 @@
             this.groupBox3.Controls.Add(this.button3);
             this.groupBox3.Controls.Add(this.comboBox5);
             this.groupBox3.Controls.Add(this.button2);
-            this.groupBox3.Controls.Add(this.textBox1);
+            this.groupBox3.Controls.Add(this.sBus);
             this.groupBox3.Location = new System.Drawing.Point(6, 282);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(449, 152);
@@ -331,12 +325,13 @@
             this.button2.Text = "Check-In";
             this.button2.UseVisualStyleBackColor = true;
             // 
-            // textBox1
+            // sBus
             // 
-            this.textBox1.Location = new System.Drawing.Point(6, 19);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(327, 20);
-            this.textBox1.TabIndex = 0;
+            this.sBus.Location = new System.Drawing.Point(6, 19);
+            this.sBus.Name = "sBus";
+            this.sBus.Size = new System.Drawing.Size(327, 20);
+            this.sBus.TabIndex = 0;
+            this.sBus.Text = "sBus";
             // 
             // groupBox2
             // 
@@ -473,7 +468,6 @@
             this.Users.Controls.Add(this.groupBox9);
             this.Users.Controls.Add(this.groupBox8);
             this.Users.Controls.Add(this.groupBox7);
-            this.Users.Controls.Add(this.groupBox6);
             this.Users.Controls.Add(this.groupBox5);
             this.Users.Controls.Add(this.groupBox4);
             this.Users.Location = new System.Drawing.Point(4, 22);
@@ -488,13 +482,13 @@
             // 
             this.groupBox9.Controls.Add(this.label6);
             this.groupBox9.Controls.Add(this.label7);
-            this.groupBox9.Controls.Add(this.textBox4);
+            this.groupBox9.Controls.Add(this.uvote_funny);
             this.groupBox9.Controls.Add(this.label5);
-            this.groupBox9.Controls.Add(this.textBox8);
-            this.groupBox9.Controls.Add(this.textBox9);
-            this.groupBox9.Location = new System.Drawing.Point(545, 6);
+            this.groupBox9.Controls.Add(this.uvote_useful);
+            this.groupBox9.Controls.Add(this.uvote_cool);
+            this.groupBox9.Location = new System.Drawing.Point(272, 62);
             this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(212, 124);
+            this.groupBox9.Size = new System.Drawing.Size(744, 68);
             this.groupBox9.TabIndex = 5;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "Votes";
@@ -502,7 +496,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(23, 70);
+            this.label6.Location = new System.Drawing.Point(310, 18);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(31, 13);
             this.label6.TabIndex = 5;
@@ -517,36 +511,36 @@
             this.label7.TabIndex = 6;
             this.label7.Text = "Funny:";
             // 
-            // textBox4
+            // uvote_funny
             // 
-            this.textBox4.Location = new System.Drawing.Point(60, 15);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(64, 20);
-            this.textBox4.TabIndex = 9;
+            this.uvote_funny.Location = new System.Drawing.Point(60, 15);
+            this.uvote_funny.Name = "uvote_funny";
+            this.uvote_funny.Size = new System.Drawing.Size(64, 20);
+            this.uvote_funny.TabIndex = 9;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(14, 41);
+            this.label5.Location = new System.Drawing.Point(156, 18);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(40, 13);
             this.label5.TabIndex = 4;
             this.label5.Text = "Useful:";
             this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
-            // textBox8
+            // uvote_useful
             // 
-            this.textBox8.Location = new System.Drawing.Point(60, 41);
-            this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(64, 20);
-            this.textBox8.TabIndex = 13;
+            this.uvote_useful.Location = new System.Drawing.Point(202, 18);
+            this.uvote_useful.Name = "uvote_useful";
+            this.uvote_useful.Size = new System.Drawing.Size(64, 20);
+            this.uvote_useful.TabIndex = 13;
             // 
-            // textBox9
+            // uvote_cool
             // 
-            this.textBox9.Location = new System.Drawing.Point(60, 67);
-            this.textBox9.Name = "textBox9";
-            this.textBox9.Size = new System.Drawing.Size(64, 20);
-            this.textBox9.TabIndex = 14;
+            this.uvote_cool.Location = new System.Drawing.Point(347, 15);
+            this.uvote_cool.Name = "uvote_cool";
+            this.uvote_cool.Size = new System.Drawing.Size(64, 20);
+            this.uvote_cool.TabIndex = 14;
             // 
             // groupBox8
             // 
@@ -593,7 +587,8 @@
             // 
             // groupBox7
             // 
-            this.groupBox7.Controls.Add(this.button7);
+            this.groupBox7.Controls.Add(this.textBox1);
+            this.groupBox7.Controls.Add(this.rmFriend);
             this.groupBox7.Controls.Add(this.dataGridView2);
             this.groupBox7.Location = new System.Drawing.Point(6, 136);
             this.groupBox7.Name = "groupBox7";
@@ -602,14 +597,15 @@
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Friends";
             // 
-            // button7
+            // rmFriend
             // 
-            this.button7.Location = new System.Drawing.Point(6, 253);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(247, 23);
-            this.button7.TabIndex = 1;
-            this.button7.Text = "Remove Friend";
-            this.button7.UseVisualStyleBackColor = true;
+            this.rmFriend.Location = new System.Drawing.Point(7, 280);
+            this.rmFriend.Name = "rmFriend";
+            this.rmFriend.Size = new System.Drawing.Size(247, 23);
+            this.rmFriend.TabIndex = 1;
+            this.rmFriend.Text = "Remove Friend";
+            this.rmFriend.UseVisualStyleBackColor = true;
+            this.rmFriend.Click += new System.EventHandler(this.rmFriend_Click);
             // 
             // dataGridView2
             // 
@@ -642,111 +638,55 @@
             this.yelp_since.HeaderText = "Yelping Since";
             this.yelp_since.Name = "yelp_since";
             // 
-            // groupBox6
-            // 
-            this.groupBox6.Controls.Add(this.textBox11);
-            this.groupBox6.Controls.Add(this.textBox10);
-            this.groupBox6.Controls.Add(this.button8);
-            this.groupBox6.Controls.Add(this.label10);
-            this.groupBox6.Controls.Add(this.label9);
-            this.groupBox6.Location = new System.Drawing.Point(824, 7);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(198, 123);
-            this.groupBox6.TabIndex = 2;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Set Location";
-            // 
-            // textBox11
-            // 
-            this.textBox11.Location = new System.Drawing.Point(69, 51);
-            this.textBox11.Name = "textBox11";
-            this.textBox11.Size = new System.Drawing.Size(123, 20);
-            this.textBox11.TabIndex = 4;
-            // 
-            // textBox10
-            // 
-            this.textBox10.Location = new System.Drawing.Point(69, 25);
-            this.textBox10.Name = "textBox10";
-            this.textBox10.Size = new System.Drawing.Size(123, 20);
-            this.textBox10.TabIndex = 3;
-            this.textBox10.TextChanged += new System.EventHandler(this.textBox10_TextChanged);
-            // 
-            // button8
-            // 
-            this.button8.Location = new System.Drawing.Point(6, 80);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(186, 23);
-            this.button8.TabIndex = 2;
-            this.button8.Text = "Update Location";
-            this.button8.UseVisualStyleBackColor = true;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(3, 54);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(57, 13);
-            this.label10.TabIndex = 1;
-            this.label10.Text = "Longitude:";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(12, 25);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(48, 13);
-            this.label9.TabIndex = 0;
-            this.label9.Text = "Latitude:";
-            // 
             // groupBox5
             // 
-            this.groupBox5.Controls.Add(this.textBox7);
-            this.groupBox5.Controls.Add(this.textBox6);
-            this.groupBox5.Controls.Add(this.textBox5);
-            this.groupBox5.Controls.Add(this.textBox3);
+            this.groupBox5.Controls.Add(this.uinfo_stars);
+            this.groupBox5.Controls.Add(this.uinfo_fans);
+            this.groupBox5.Controls.Add(this.uinfo_ys);
+            this.groupBox5.Controls.Add(this.uinfo_name);
             this.groupBox5.Controls.Add(this.label4);
             this.groupBox5.Controls.Add(this.label3);
             this.groupBox5.Controls.Add(this.label2);
             this.groupBox5.Controls.Add(this.label1);
             this.groupBox5.Location = new System.Drawing.Point(272, 6);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(197, 124);
+            this.groupBox5.Size = new System.Drawing.Size(744, 50);
             this.groupBox5.TabIndex = 1;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "User Information";
             // 
-            // textBox7
+            // uinfo_stars
             // 
-            this.textBox7.Location = new System.Drawing.Point(85, 45);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(100, 20);
-            this.textBox7.TabIndex = 12;
+            this.uinfo_stars.Location = new System.Drawing.Point(202, 19);
+            this.uinfo_stars.Name = "uinfo_stars";
+            this.uinfo_stars.Size = new System.Drawing.Size(100, 20);
+            this.uinfo_stars.TabIndex = 12;
             // 
-            // textBox6
+            // uinfo_fans
             // 
-            this.textBox6.Location = new System.Drawing.Point(85, 71);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(100, 20);
-            this.textBox6.TabIndex = 11;
+            this.uinfo_fans.Location = new System.Drawing.Point(347, 19);
+            this.uinfo_fans.Name = "uinfo_fans";
+            this.uinfo_fans.Size = new System.Drawing.Size(100, 20);
+            this.uinfo_fans.TabIndex = 11;
             // 
-            // textBox5
+            // uinfo_ys
             // 
-            this.textBox5.Location = new System.Drawing.Point(85, 97);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(100, 20);
-            this.textBox5.TabIndex = 10;
+            this.uinfo_ys.Location = new System.Drawing.Point(538, 19);
+            this.uinfo_ys.Name = "uinfo_ys";
+            this.uinfo_ys.Size = new System.Drawing.Size(100, 20);
+            this.uinfo_ys.TabIndex = 10;
             // 
-            // textBox3
+            // uinfo_name
             // 
-            this.textBox3.Location = new System.Drawing.Point(85, 19);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 20);
-            this.textBox3.TabIndex = 8;
+            this.uinfo_name.Location = new System.Drawing.Point(50, 19);
+            this.uinfo_name.Name = "uinfo_name";
+            this.uinfo_name.Size = new System.Drawing.Size(100, 20);
+            this.uinfo_name.TabIndex = 8;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(4, 104);
+            this.label4.Location = new System.Drawing.Point(457, 22);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(75, 13);
             this.label4.TabIndex = 3;
@@ -756,7 +696,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(46, 74);
+            this.label3.Location = new System.Drawing.Point(308, 22);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(33, 13);
             this.label3.TabIndex = 2;
@@ -765,7 +705,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(45, 45);
+            this.label2.Location = new System.Drawing.Point(162, 22);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(34, 13);
             this.label2.TabIndex = 1;
@@ -775,7 +715,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(41, 22);
+            this.label1.Location = new System.Drawing.Point(6, 22);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(38, 13);
             this.label1.TabIndex = 0;
@@ -793,20 +733,30 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Set Current User";
             // 
+            // listBox1
+            // 
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Location = new System.Drawing.Point(7, 45);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(246, 69);
+            this.listBox1.TabIndex = 1;
+            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            // 
             // uname
             // 
             this.uname.Location = new System.Drawing.Point(6, 19);
             this.uname.Name = "uname";
             this.uname.Size = new System.Drawing.Size(247, 20);
             this.uname.TabIndex = 0;
+            this.uname.Text = "Type name here...";
+            this.uname.KeyDown += new System.Windows.Forms.KeyEventHandler(this.uname_KeyDown);
             // 
-            // listBox1
+            // textBox1
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(7, 41);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(246, 69);
-            this.listBox1.TabIndex = 1;
+            this.textBox1.Location = new System.Drawing.Point(6, 256);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(246, 20);
+            this.textBox1.TabIndex = 2;
             // 
             // Form1
             // 
@@ -833,9 +783,8 @@
             this.groupBox8.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
             this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
-            this.groupBox6.ResumeLayout(false);
-            this.groupBox6.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             this.groupBox4.ResumeLayout(false);
@@ -873,7 +822,7 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.ComboBox comboBox5;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox sBus;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button button6;
@@ -887,12 +836,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn p_city;
         private System.Windows.Forms.DataGridViewTextBoxColumn p_text;
         private System.Windows.Forms.GroupBox groupBox7;
-        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button rmFriend;
         private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.DataGridViewTextBoxColumn friend_name;
         private System.Windows.Forms.DataGridViewTextBoxColumn avg_stars;
         private System.Windows.Forms.DataGridViewTextBoxColumn yelp_since;
-        private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox4;
@@ -903,20 +851,16 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox textBox9;
-        private System.Windows.Forms.TextBox textBox8;
-        private System.Windows.Forms.TextBox textBox7;
-        private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox11;
-        private System.Windows.Forms.TextBox textBox10;
-        private System.Windows.Forms.Button button8;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox uvote_cool;
+        private System.Windows.Forms.TextBox uvote_useful;
+        private System.Windows.Forms.TextBox uinfo_stars;
+        private System.Windows.Forms.TextBox uinfo_fans;
+        private System.Windows.Forms.TextBox uinfo_ys;
+        private System.Windows.Forms.TextBox uvote_funny;
+        private System.Windows.Forms.TextBox uinfo_name;
         private System.Windows.Forms.GroupBox groupBox9;
         private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
 

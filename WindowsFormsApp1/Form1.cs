@@ -15,6 +15,7 @@ namespace WindowsFormsApp1
     public partial class Form1 : Form
     {
         private string connString;
+
         public Form1()
         {
             InitializeComponent();
@@ -58,7 +59,6 @@ namespace WindowsFormsApp1
             }
         }
 
-
         public void adduid()
         {
             using (var conn = new NpgsqlConnection(buildConnString()))
@@ -75,33 +75,113 @@ namespace WindowsFormsApp1
                         {
                             listBox1.Items.Add(reader.GetString(0));
                         }
-                        uname.Text = "PLAC 1";
                     }
                 }
                 conn.Close();
             }
         }
 
-        private void popFname()
+        private void clearTopFrame()
         {
-            uname.Text = "PLAC 2";
+            uname.Clear();
+            uinfo_name.Clear();
+            uinfo_fans.Clear();
+            uinfo_stars.Clear();
+            uinfo_ys.Clear();
+            uvote_cool.Clear();
+            uvote_funny.Clear();
+            uvote_useful.Clear();
+
+        }
+
+        private void popTopFrame()
+        {
             using (var conn = new NpgsqlConnection(buildConnString()))
             {
                 conn.Open();
                 using (var cmd = new NpgsqlCommand())
                 {
                     cmd.Connection = conn;
-                    cmd.CommandText = "SELECT name FROM yelp_user WHERE user_id='" + listBox1.SelectedItem.ToString() + "'";
+                    cmd.CommandText = "SELECT name, avg(stars),fans,yelping_since,sum(funny),sum(useful),sum(cool) FROM yelp_user,yelp_review WHERE yelp_user.user_id = yelp_review.user_id and yelp_user.user_id='" + listBox1.SelectedItem.ToString() + "' GROUP BY name,fans,yelping_since";
+                    //SELECT name, sum(stars),fans,yelping_since,sum(funny),sum(useful),sum(cool) FROM yelp_user,yelp_review WHERE yelp_user.user_id='--2HUmLkcNHZp0xw6AMBPg' GROUP BY name,fans,yelping_since
+
                     using (var reader = cmd.ExecuteReader())
                     {
-                        uname.Text = "PLAC 2";
-                        uname.Text = reader.GetString(0);
+                        reader.Read();                       
+                        uinfo_name.Text = reader.GetString(0);
+                        uinfo_stars.Text = reader.GetString(1);
+                        uinfo_fans.Text = reader.GetString(2);
+                        uinfo_ys.Text = reader.GetDate(3).ToString();
+                        uvote_funny.Text = reader.GetString(4);
+                        uvote_useful.Text = reader.GetString(5);
+                        uvote_cool.Text = reader.GetString(6);
+
                     }
                 }
                 conn.Close();
             }
         }
 
+        private void popFriendFrame()
+        {
+            //clear previous contents
+            dataGridView2.Rows.Clear();
+            using (var conn = new NpgsqlConnection(buildConnString()))
+            {
+                conn.Open();
+                using (var cmd = new NpgsqlCommand())
+                {
+                    cmd.Connection = conn;
+                    //select name, avg(stars),yelping_since from yelp_user,yelp_review where yelp_user.user_id = yelp_review.user_id and yelp_user.user_id=(select distinct friend_id from yelp_friends where user_id ='--2HUmLkcNHZp0xw6AMBPg') group by name,yelping_since
+                    cmd.CommandText = "select name, avg(stars),yelping_since from yelp_user,yelp_review where yelp_user.user_id = yelp_review.user_id and yelp_user.user_id in (select distinct friend_id from yelp_friends where user_id='" + listBox1.SelectedItem.ToString() + "') group by name,yelping_since"; //this too
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        dataGridView2.RowTemplate.CreateCells(dataGridView2);
+                        while (reader.Read())
+                        {
+                            DataGridViewRow row = (DataGridViewRow)dataGridView2.RowTemplate.Clone();
+                            row.Cells[0].Value = reader.GetString(0);
+                            row.Cells[1].Value = reader.GetString(1);
+                            row.Cells[2].Value = reader.GetDate(2).ToString();
+
+                            dataGridView2.Rows.Add(row);
+                        }
+                    }
+                }
+                conn.Close();
+            }
+        }
+
+        private void popFriendReviewFrame()
+        {
+            //clear previous contents
+            dataGridView3.Rows.Clear();
+            using (var conn = new NpgsqlConnection(buildConnString()))
+            {
+                conn.Open();
+                using (var cmd = new NpgsqlCommand())
+                {
+                    cmd.Connection = conn;
+                    //select name, avg(stars),yelping_since from yelp_user,yelp_review where yelp_user.user_id = yelp_review.user_id and yelp_user.user_id=(select distinct friend_id from yelp_friends where user_id ='--2HUmLkcNHZp0xw6AMBPg') group by name,yelping_since
+                    cmd.CommandText = "select yelp_user.name,yelp_business.name, city, text from yelp_user,yelp_review,yelp_business where yelp_user.user_id = yelp_review.user_id and yelp_review.business_id = yelp_business.business_id and yelp_user.user_id in (select friend_id from yelp_friends where user_id= '" + listBox1.SelectedItem.ToString() + "') ORDER BY yelp_user.name"; //this too
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        dataGridView3.RowTemplate.CreateCells(dataGridView3);
+                        while (reader.Read())
+                        {
+                            DataGridViewRow row = (DataGridViewRow)dataGridView3.RowTemplate.Clone();
+                            row.Cells[0].Value = reader.GetString(0);
+                            row.Cells[1].Value = reader.GetString(1);
+                            row.Cells[2].Value = reader.GetString(2);
+                            row.Cells[3].Value = reader.GetString(3);
+
+                            dataGridView3.Rows.Add(row);
+                        }
+                    }
+                }
+                conn.Close();
+            }
+        }
 
         public void addCities(String selectedState)
         {
@@ -149,7 +229,7 @@ namespace WindowsFormsApp1
             }
         }
 
-        public void addCategories(String selectedZip) //Change this
+        public void addCategories(String selectedZip) 
         {
             bCategory.Items.Clear();
             using (var conn = new NpgsqlConnection(buildConnString()))
@@ -171,7 +251,6 @@ namespace WindowsFormsApp1
                 conn.Close();
             }
         }
-
 
         private void bState_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -256,13 +335,22 @@ namespace WindowsFormsApp1
 
         }
 
+        private void dataGridView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            sBus.Text = "Triggered";
+            DataGridViewRow row = (DataGridViewRow)dataGridView1.RowTemplate.Clone();
+
+            sBus.Text = row.Cells[0].Value.ToString();
+        }
+
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            uname.Text = "PLAC 2";
             if (this.listBox1.SelectedIndex > -1)
             {
-                uname.Clear();
-                popFname();
+                clearTopFrame();
+                popTopFrame();
+                popFriendFrame();
+                popFriendReviewFrame();
 
             }
         }
@@ -270,6 +358,29 @@ namespace WindowsFormsApp1
         private void button3_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void rmFriend_Click(object sender, EventArgs e)
+        {
+            textBox1.Text = "Deleted";
+            using (var conn = new NpgsqlConnection(buildConnString()))
+            {
+                conn.Open();
+                using (var cmd = new NpgsqlCommand())
+                {
+                    cmd.Connection = conn;
+                    cmd.CommandText = "DELETE FROM yelp_friends WHERE name='" + textBox1.ToString() + "'";
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                       
+                    }
+                }
+                conn.Close();
+                clearTopFrame();
+                popTopFrame();
+                popFriendFrame();
+                popFriendReviewFrame();
+            }
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -300,6 +411,34 @@ namespace WindowsFormsApp1
         private void label5_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void uname_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                //enter key is down
+                using (var conn = new NpgsqlConnection(buildConnString()))
+                {
+                    conn.Open();
+                    using (var cmd = new NpgsqlCommand())
+                    {
+                        cmd.Connection = conn;
+                        cmd.CommandText = "SELECT DISTINCT user_id FROM yelp_user where name='" + textBox1.Text + "' limit 1";
+                        MessageBox.Show(textBox1.Text);
+                        using (var reader = cmd.ExecuteReader())
+                        {
+
+                            while (reader.Read())
+                            {
+                                int index = listBox1.FindStringExact(reader.GetString(0));
+                                listBox1.SetSelected(index, true);
+                            }
+                        }
+                    }
+                    conn.Close();
+                }
+            }
         }
     }
 }
