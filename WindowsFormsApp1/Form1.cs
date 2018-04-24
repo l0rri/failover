@@ -550,11 +550,15 @@ namespace WindowsFormsApp1
                             form3.chart1.Titles.Add("Check-ins per Day-of-Week");
 
                             // Add series.
-                            for (int i = 0; i < seriesArray.Length; i++)
+                            int i = 0;
+
+                            while( reader.Read() )
                             {
-                                pointsArray[i] = reader.GetInt32(i);
+                                 //var test = reader.GetValue(0);
+                                pointsArray[i] = reader.GetInt32(0);
                                 Series series = form3.chart1.Series.Add(seriesArray[i]);
                                 series.Points.Add(pointsArray[i]);
+                                i++;
                             }
 
                             form3.Show();
