@@ -510,18 +510,9 @@ namespace WindowsFormsApp1
 
         private void button4_Click(object sender, EventArgs e)
         {
-            //business by zip chart
+            //checkins chart
             Form3 form3 = new Form3();
 
-
-            //    var chartArea = new ChartArea("MyChart");
-            //chartArea.AxisX.Title = "xxx";
-            //chartArea.AxisY.Title = "yyy";
-            //form3.chart1.ChartAreas[0].AxisX.Title = "xaxis";
-            //form3.chart1.ChartAreas[0].AxisY.Title = "yaxis";
-            //form3.chart1.
-            //form3.chart1.Show();
-            //form3.Show();
 
 
             form3.chart1.Series.Clear();
@@ -537,7 +528,7 @@ namespace WindowsFormsApp1
                     {
 
                         cmd.Connection = conn;
-                        cmd.CommandText = "SELECT COUNT(yelp_checkin.business_id) FROM yelp_checkin, yelp_business WHERE yelp_checkin.business_id = (SELECT business_id FROM yelp_business WHERE postal_code ='" + bZip.SelectedItem.ToString() + "' AND name ='" + dataGridView1.SelectedCells[0].Value + "') AND yelp_checkin.business_id = yelp_business.business_id GROUP BY yelp_checkin.business_id, day_of_week";
+                        cmd.CommandText = "SELECT morning+afternoon+evening+night FROM yelp_checkin, yelp_business WHERE yelp_checkin.business_id = (SELECT business_id FROM yelp_business WHERE postal_code ='" + bZip.SelectedItem.ToString() + "' AND name ='" + dataGridView1.SelectedCells[0].Value + "') AND yelp_checkin.business_id = yelp_business.business_id GROUP BY yelp_checkin.business_id, day_of_week";
                         using (var reader = cmd.ExecuteReader())
                         {
 
@@ -632,7 +623,10 @@ namespace WindowsFormsApp1
         private void button2_Click(object sender, EventArgs e)
         {
             //checkin
+            var bname = dataGridView1.SelectedCells[0].Value;
+            var bid = dataGridView1.SelectedCells[6].Value;
 
+            var b4 = 0;
         }
 
 
