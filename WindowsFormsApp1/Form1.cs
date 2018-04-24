@@ -595,7 +595,9 @@ namespace WindowsFormsApp1
                             IList<int> pointsArray = new List<int>();
 
                             // Set palette
-                            form3.chart1.Palette = ChartColorPalette.Excel;
+                            form3.chart1.Palette = ChartColorPalette.SeaGreen;
+
+                            
 
                             // Set title
                             form3.chart1.Titles.Add("Businesses per Zipcode");
