@@ -455,5 +455,52 @@ namespace WindowsFormsApp1
                 }
             }
         }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            //show reviews
+            Form2 form2 = new Form2();
+
+            if (this.bCategory.SelectedIndex > -1)
+            {
+
+                // clear previous contents
+
+                form2.dataGridView1.Rows.Clear();
+                using (var conn = new NpgsqlConnection(buildConnString()))
+                {
+                    conn.Open();
+                    using (var cmd = new NpgsqlCommand())
+                    {
+
+                        cmd.Connection = conn;
+                        cmd.CommandText = "SELECT date,name,stars,text, funny, useful, cool FROM yelp_review, yelp_user WHERE yelp_review.user_id = yelp_user.user_id AND yelp_review.business_id = (SELECT business_id FROM yelp_business WHERE postal_code ='" + bZip.SelectedItem.ToString() + "' AND name ='" + dataGridView1.SelectedCells[0].Value + "')"; //this too
+                        using (var reader = cmd.ExecuteReader())
+                        {
+
+                            form2.dataGridView1.RowTemplate.CreateCells(form2.dataGridView1);
+                            while (reader.Read())
+                            {
+                                DataGridViewRow row = (DataGridViewRow)form2.dataGridView1.RowTemplate.Clone();
+                                row.Cells[0].Value = reader.GetDate(0);
+                                row.Cells[1].Value = reader.GetString(1);
+                                row.Cells[2].Value = reader.GetString(2);
+                                row.Cells[3].Value = reader.GetString(3);
+
+                                row.Cells[4].Value = reader.GetInt32(4);
+                                row.Cells[5].Value = reader.GetInt32(5);
+                                row.Cells[6].Value = reader.GetInt32(6);
+                                form2.dataGridView1.Rows.Add(row);
+                            }
+                        }
+                    }
+                    conn.Close();
+                }
+                form2.dataGridView1.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+                form2.dataGridView1.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+
+                form2.Show();
+            }
+        }
     }
-}
+ }
