@@ -299,7 +299,7 @@ namespace WindowsFormsApp1
                     using (var cmd = new NpgsqlCommand())
                     {
                         cmd.Connection = conn;
-                        cmd.CommandText = "SELECT name FROM yelp_business_categories, yelp_business WHERE yelp_business.business_id = yelp_business_categories.business_id AND postal_code='" + bZip.SelectedItem.ToString() + "' AND category_name='" + bCategory.SelectedItem.ToString() + "'"; //this too
+                        cmd.CommandText = "SELECT name, address, yelp_business.business_id FROM yelp_business_categories, yelp_business WHERE yelp_business.business_id = yelp_business_categories.business_id AND postal_code='" + bZip.SelectedItem.ToString() + "' AND category_name='" + bCategory.SelectedItem.ToString() + "'"; //this too
                         using (var reader = cmd.ExecuteReader())
                         {
                             dataGridView1.RowTemplate.CreateCells(dataGridView1);            
@@ -307,10 +307,12 @@ namespace WindowsFormsApp1
                             {
                                 DataGridViewRow row = (DataGridViewRow)dataGridView1.RowTemplate.Clone();
                                 row.Cells[0].Value = reader.GetString(0);
-                                row.Cells[1].Value = bState.SelectedItem.ToString();
-                                row.Cells[2].Value = bCity.SelectedItem.ToString();
-                                row.Cells[3].Value = bZip.SelectedItem.ToString();
-                                row.Cells[4].Value = bCategory.SelectedItem.ToString();
+                                row.Cells[1].Value = reader.GetString(1);
+                                row.Cells[2].Value = bState.SelectedItem.ToString();
+                                row.Cells[3].Value = bCity.SelectedItem.ToString();
+                                row.Cells[4].Value = bZip.SelectedItem.ToString();
+                                row.Cells[5].Value = bCategory.SelectedItem.ToString();
+                                row.Cells[6].Value = reader.GetString(2);
                                 dataGridView1.Rows.Add(row);
                             }
                         }
@@ -544,7 +546,7 @@ namespace WindowsFormsApp1
                             int[] pointsArray = { 0, 0, 0, 0, 0, 0, 0 };
 
                             // Set palette
-                            form3.chart1.Palette = ChartColorPalette.Excel;
+                            form3.chart1.Palette = ChartColorPalette.SeaGreen;
 
                             // Set title
                             form3.chart1.Titles.Add("Check-ins per Day-of-Week");
@@ -621,5 +623,18 @@ namespace WindowsFormsApp1
                 }
             }
         }
+
+        private void sBus_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            //checkin
+
+        }
+
+
     }
  }
