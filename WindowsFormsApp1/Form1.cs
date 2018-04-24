@@ -8,6 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Npgsql;
+using System.Windows.Controls.DataVisualization;
+using System.Windows.Forms.DataVisualization.Charting;
+
 
 
 namespace WindowsFormsApp1
@@ -505,7 +508,61 @@ namespace WindowsFormsApp1
 
         private void button4_Click(object sender, EventArgs e)
         {
+            //business by zip chart
+            Form3 form3 = new Form3();
 
+
+            //    var chartArea = new ChartArea("MyChart");
+            //chartArea.AxisX.Title = "xxx";
+            //chartArea.AxisY.Title = "yyy";
+            //form3.chart1.ChartAreas[0].AxisX.Title = "xaxis";
+            //form3.chart1.ChartAreas[0].AxisY.Title = "yaxis";
+            //form3.chart1.
+            //form3.chart1.Show();
+            //form3.Show();
+
+
+            form3.chart1.Series.Clear();
+
+
+
+            if (this.bCategory.SelectedIndex > -1)
+            {
+                using (var conn = new NpgsqlConnection(buildConnString()))
+                {
+                    conn.Open();
+                    using (var cmd = new NpgsqlCommand())
+                    {
+
+                        cmd.Connection = conn;
+                        cmd.CommandText = "SELECT COUNT(yelp_checkin.business_id) FROM yelp_checkin, yelp_business WHERE yelp_checkin.business_id = (SELECT business_id FROM yelp_business WHERE postal_code ='" + bZip.SelectedItem.ToString() + "' AND name ='" + dataGridView1.SelectedCells[0].Value + "') AND yelp_checkin.business_id = yelp_business.business_id GROUP BY yelp_checkin.business_id, day_of_week";
+                        using (var reader = cmd.ExecuteReader())
+                        {
+
+                            // Data arrays
+                            string[] seriesArray = { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
+                            int[] pointsArray = { 0, 0, 0, 0, 0, 0, 0 };
+
+                            // Set palette
+                            form3.chart1.Palette = ChartColorPalette.Excel;
+
+                            // Set title
+                            form3.chart1.Titles.Add("Check-ins per Day-of-Week");
+
+                            // Add series.
+                            for (int i = 0; i < seriesArray.Length; i++)
+                            {
+                                pointsArray[i] = reader.GetInt32(i);
+                                Series series = form3.chart1.Series.Add(seriesArray[i]);
+                                series.Points.Add(pointsArray[i]);
+                            }
+
+                            form3.Show();
+
+                        }
+                    }
+                }
+            }
         }
     }
  }
