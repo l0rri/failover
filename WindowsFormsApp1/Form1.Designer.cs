@@ -33,13 +33,6 @@
             this.bState = new System.Windows.Forms.ComboBox();
             this.bCity = new System.Windows.Forms.ComboBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.BusinessName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Address = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.State = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.City = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ZIP = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Categories = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Business_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bZip = new System.Windows.Forms.ComboBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.Business = new System.Windows.Forms.TabPage();
@@ -96,6 +89,13 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.uname = new System.Windows.Forms.TextBox();
+            this.BusinessName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Address = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.State = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.City = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ZIP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Categories = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Business_id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -172,62 +172,8 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(745, 243);
             this.dataGridView1.TabIndex = 2;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            // 
-            // BusinessName
-            // 
-            this.BusinessName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.BusinessName.HeaderText = "BusinessName";
-            this.BusinessName.Name = "BusinessName";
-            this.BusinessName.ReadOnly = true;
-            this.BusinessName.Width = 102;
-            // 
-            // Address
-            // 
-            this.Address.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
-            this.Address.HeaderText = "Address";
-            this.Address.Name = "Address";
-            this.Address.ReadOnly = true;
-            this.Address.Width = 200;
-            // 
-            // State
-            // 
-            this.State.HeaderText = "State";
-            this.State.Name = "State";
-            this.State.ReadOnly = true;
-            this.State.Width = 57;
-            // 
-            // City
-            // 
-            this.City.HeaderText = "City";
-            this.City.Name = "City";
-            this.City.ReadOnly = true;
-            this.City.Width = 49;
-            // 
-            // ZIP
-            // 
-            this.ZIP.HeaderText = "ZIP";
-            this.ZIP.Name = "ZIP";
-            this.ZIP.ReadOnly = true;
-            this.ZIP.Width = 49;
-            // 
-            // Categories
-            // 
-            this.Categories.HeaderText = "Categories";
-            this.Categories.Name = "Categories";
-            this.Categories.ReadOnly = true;
-            this.Categories.Width = 82;
-            // 
-            // Business_id
-            // 
-            this.Business_id.HeaderText = "Business_id";
-            this.Business_id.Name = "Business_id";
-            this.Business_id.ReadOnly = true;
-            this.Business_id.Visible = false;
-            this.Business_id.Width = 88;
             // 
             // bZip
             // 
@@ -860,7 +806,6 @@
             this.uname.Click += new System.EventHandler(this.uname_Click);
             this.uname.KeyDown += new System.Windows.Forms.KeyEventHandler(this.uname_KeyDown);
             // 
-<<<<<<< HEAD
             // BusinessName
             // 
             this.BusinessName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
@@ -913,8 +858,6 @@
             this.Business_id.Visible = false;
             this.Business_id.Width = 88;
             // 
-=======
->>>>>>> 30fd147514f5a049bd9634810d0ca124115ce686
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
