@@ -362,17 +362,20 @@ namespace WindowsFormsApp1
 
         private void rmFriend_Click(object sender, EventArgs e)
         {
-            textBox1.Text = "Deleted";
             using (var conn = new NpgsqlConnection(buildConnString()))
             {
                 conn.Open();
                 using (var cmd = new NpgsqlCommand())
                 {
                     cmd.Connection = conn;
-                    cmd.CommandText = "DELETE FROM yelp_friends WHERE name='" + textBox1.ToString() + "'";
+                    cmd.CommandText = "delete from yelp_friends where user_id='"+ listBox1.SelectedItem.ToString() + "' and friend_id in (select user_id from yelp_user where name='"+textBox1.Text.ToString() +"' and user_id in (select friend_id from yelp_friends where user_id='"+ listBox1.SelectedItem.ToString() + "'))";
                     using (var reader = cmd.ExecuteReader())
                     {
-                       
+                        if (reader.Read())
+                        {
+                            MessageBox.Show("Friend deletion unsuccessful");
+                        }
+                        MessageBox.Show("Friend deletion successful!");
                     }
                 }
                 conn.Close();
@@ -413,26 +416,38 @@ namespace WindowsFormsApp1
 
         }
 
+        private void uname_Click(object sender, EventArgs e)
+        {
+            uname.Clear();
+        }
+
         private void uname_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
                 //enter key is down
+               
                 using (var conn = new NpgsqlConnection(buildConnString()))
                 {
                     conn.Open();
                     using (var cmd = new NpgsqlCommand())
                     {
                         cmd.Connection = conn;
-                        cmd.CommandText = "SELECT DISTINCT user_id FROM yelp_user where name='" + textBox1.Text + "' limit 1";
-                        MessageBox.Show(textBox1.Text);
+                        cmd.CommandText = "SELECT DISTINCT user_id FROM yelp_user where name='" + uname.Text.ToString() + "' limit 1";
                         using (var reader = cmd.ExecuteReader())
                         {
 
                             while (reader.Read())
                             {
                                 int index = listBox1.FindStringExact(reader.GetString(0));
-                                listBox1.SetSelected(index, true);
+                                if (index < 0)
+                                {
+                                    MessageBox.Show("Invalid Name");
+                                }
+                                else
+                                {
+                                    listBox1.SetSelected(index, true);
+                                }
                             }
                         }
                     }

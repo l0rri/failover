@@ -71,16 +71,10 @@
             this.uvote_cool = new System.Windows.Forms.TextBox();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
-            this.p_uname = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.p_business = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.p_city = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.p_text = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.rmFriend = new System.Windows.Forms.Button();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.friend_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.avg_stars = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.yelp_since = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.uinfo_stars = new System.Windows.Forms.TextBox();
             this.uinfo_fans = new System.Windows.Forms.TextBox();
@@ -93,7 +87,13 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.listBox1 = new System.Windows.Forms.ListBox();
             this.uname = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.p_uname = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.p_business = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.p_city = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.p_text = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.friend_name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.avg_stars = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.yelp_since = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -562,28 +562,9 @@
             this.p_text});
             this.dataGridView3.Location = new System.Drawing.Point(6, 19);
             this.dataGridView3.Name = "dataGridView3";
+            this.dataGridView3.RowHeadersVisible = false;
             this.dataGridView3.Size = new System.Drawing.Size(738, 257);
             this.dataGridView3.TabIndex = 0;
-            // 
-            // p_uname
-            // 
-            this.p_uname.HeaderText = "Name";
-            this.p_uname.Name = "p_uname";
-            // 
-            // p_business
-            // 
-            this.p_business.HeaderText = "Business";
-            this.p_business.Name = "p_business";
-            // 
-            // p_city
-            // 
-            this.p_city.HeaderText = "City";
-            this.p_city.Name = "p_city";
-            // 
-            // p_text
-            // 
-            this.p_text.HeaderText = "Text";
-            this.p_text.Name = "p_text";
             // 
             // groupBox7
             // 
@@ -596,6 +577,13 @@
             this.groupBox7.TabIndex = 3;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Friends";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(6, 256);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(246, 20);
+            this.textBox1.TabIndex = 2;
             // 
             // rmFriend
             // 
@@ -616,27 +604,9 @@
             this.yelp_since});
             this.dataGridView2.Location = new System.Drawing.Point(7, 19);
             this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.RowHeadersVisible = false;
             this.dataGridView2.Size = new System.Drawing.Size(247, 228);
             this.dataGridView2.TabIndex = 0;
-            // 
-            // friend_name
-            // 
-            this.friend_name.FillWeight = 60F;
-            this.friend_name.HeaderText = "Name";
-            this.friend_name.Name = "friend_name";
-            this.friend_name.Width = 60;
-            // 
-            // avg_stars
-            // 
-            this.avg_stars.FillWeight = 60F;
-            this.avg_stars.HeaderText = "Avg Stars";
-            this.avg_stars.Name = "avg_stars";
-            this.avg_stars.Width = 60;
-            // 
-            // yelp_since
-            // 
-            this.yelp_since.HeaderText = "Yelping Since";
-            this.yelp_since.Name = "yelp_since";
             // 
             // groupBox5
             // 
@@ -749,14 +719,49 @@
             this.uname.Size = new System.Drawing.Size(247, 20);
             this.uname.TabIndex = 0;
             this.uname.Text = "Type name here...";
+            this.uname.Click += new System.EventHandler(this.uname_Click);
             this.uname.KeyDown += new System.Windows.Forms.KeyEventHandler(this.uname_KeyDown);
             // 
-            // textBox1
+            // p_uname
             // 
-            this.textBox1.Location = new System.Drawing.Point(6, 256);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(246, 20);
-            this.textBox1.TabIndex = 2;
+            this.p_uname.HeaderText = "Name";
+            this.p_uname.Name = "p_uname";
+            // 
+            // p_business
+            // 
+            this.p_business.HeaderText = "Business";
+            this.p_business.Name = "p_business";
+            // 
+            // p_city
+            // 
+            this.p_city.HeaderText = "City";
+            this.p_city.Name = "p_city";
+            // 
+            // p_text
+            // 
+            this.p_text.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.p_text.HeaderText = "Text";
+            this.p_text.Name = "p_text";
+            // 
+            // friend_name
+            // 
+            this.friend_name.FillWeight = 60F;
+            this.friend_name.HeaderText = "Name";
+            this.friend_name.Name = "friend_name";
+            this.friend_name.Width = 60;
+            // 
+            // avg_stars
+            // 
+            this.avg_stars.FillWeight = 60F;
+            this.avg_stars.HeaderText = "Avg Stars";
+            this.avg_stars.Name = "avg_stars";
+            this.avg_stars.Width = 60;
+            // 
+            // yelp_since
+            // 
+            this.yelp_since.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.yelp_since.HeaderText = "Yelping Since";
+            this.yelp_since.Name = "yelp_since";
             // 
             // Form1
             // 
@@ -831,16 +836,9 @@
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.GroupBox groupBox8;
         private System.Windows.Forms.DataGridView dataGridView3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn p_uname;
-        private System.Windows.Forms.DataGridViewTextBoxColumn p_business;
-        private System.Windows.Forms.DataGridViewTextBoxColumn p_city;
-        private System.Windows.Forms.DataGridViewTextBoxColumn p_text;
         private System.Windows.Forms.GroupBox groupBox7;
         private System.Windows.Forms.Button rmFriend;
         private System.Windows.Forms.DataGridView dataGridView2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn friend_name;
-        private System.Windows.Forms.DataGridViewTextBoxColumn avg_stars;
-        private System.Windows.Forms.DataGridViewTextBoxColumn yelp_since;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox4;
@@ -861,6 +859,13 @@
         private System.Windows.Forms.GroupBox groupBox9;
         private System.Windows.Forms.ListBox listBox1;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn p_uname;
+        private System.Windows.Forms.DataGridViewTextBoxColumn p_business;
+        private System.Windows.Forms.DataGridViewTextBoxColumn p_city;
+        private System.Windows.Forms.DataGridViewTextBoxColumn p_text;
+        private System.Windows.Forms.DataGridViewTextBoxColumn friend_name;
+        private System.Windows.Forms.DataGridViewTextBoxColumn avg_stars;
+        private System.Windows.Forms.DataGridViewTextBoxColumn yelp_since;
     }
 }
 
