@@ -380,6 +380,12 @@
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "Name",
+            "Price- Low to High",
+            "Price- High to Low",
+            "Reviews - High to Low",
+            "Reviews - Low to High"});
             this.comboBox1.Location = new System.Drawing.Point(14, 279);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(238, 21);
@@ -429,6 +435,14 @@
             // comboBox2
             // 
             this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Items.AddRange(new object[] {
+            "Sunday",
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday"});
             this.comboBox2.Location = new System.Drawing.Point(6, 19);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(237, 21);
@@ -439,6 +453,31 @@
             // comboBox4
             // 
             this.comboBox4.FormattingEnabled = true;
+            this.comboBox4.Items.AddRange(new object[] {
+            "0500",
+            "0600",
+            "0700",
+            "0800",
+            "0900",
+            "1000",
+            "1100",
+            "1200",
+            "1300",
+            "1400",
+            "1500",
+            "1600",
+            "1700",
+            "1800",
+            "1900",
+            "2000",
+            "2100",
+            "2200",
+            "2300",
+            "0000",
+            "0100",
+            "0200",
+            "0300",
+            "0400"});
             this.comboBox4.Location = new System.Drawing.Point(116, 46);
             this.comboBox4.Name = "comboBox4";
             this.comboBox4.Size = new System.Drawing.Size(128, 21);
@@ -449,6 +488,31 @@
             // comboBox3
             // 
             this.comboBox3.FormattingEnabled = true;
+            this.comboBox3.Items.AddRange(new object[] {
+            "0500",
+            "0600",
+            "0700",
+            "0800",
+            "0900",
+            "1000",
+            "1100",
+            "1200",
+            "1300",
+            "1400",
+            "1500",
+            "1600",
+            "1700",
+            "1800",
+            "1900",
+            "2000",
+            "2100",
+            "2200",
+            "2300",
+            "0000",
+            "0100",
+            "0200",
+            "0300",
+            "0400"});
             this.comboBox3.Location = new System.Drawing.Point(6, 46);
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(104, 21);
