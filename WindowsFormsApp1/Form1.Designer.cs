@@ -172,6 +172,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
+            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView1.Size = new System.Drawing.Size(745, 243);
             this.dataGridView1.TabIndex = 2;
             // 
@@ -820,7 +821,7 @@
             this.Address.HeaderText = "Address";
             this.Address.Name = "Address";
             this.Address.ReadOnly = true;
-            this.Address.Width = 250;
+            this.Address.Width = 200;
             // 
             // State
             // 
