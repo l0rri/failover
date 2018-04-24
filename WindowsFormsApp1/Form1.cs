@@ -568,5 +568,56 @@ namespace WindowsFormsApp1
                 }
             }
         }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            Form3 form3 = new Form3();
+
+            form3.chart1.Series.Clear();
+
+
+            if (this.bCategory.SelectedIndex > -1)
+            {
+                using (var conn = new NpgsqlConnection(buildConnString()))
+                {
+                    conn.Open();
+                    using (var cmd = new NpgsqlCommand())
+                    {
+
+                        cmd.Connection = conn;
+                        cmd.CommandText = "SELECT postal_code,COUNT(business_id) FROM yelp_business WHERE city = '" + bCity.SelectedItem.ToString() + "' AND state='" + bState.SelectedItem.ToString() + "' GROUP BY postal_code ";
+
+                        using (var reader = cmd.ExecuteReader())
+                        {
+
+                            // Data arrays
+                            IList<string> seriesArray = new List<string>();
+                            IList<int> pointsArray = new List<int>();
+
+                            // Set palette
+                            form3.chart1.Palette = ChartColorPalette.Excel;
+
+                            // Set title
+                            form3.chart1.Titles.Add("Businesses per Zipcode");
+
+                            // Add series.
+                            int i = 0;
+
+                            while (reader.Read())
+                            {
+                                seriesArray.Add(reader.GetString(0));
+                                pointsArray.Add(reader.GetInt32(1));
+                                Series series = form3.chart1.Series.Add(seriesArray[i]);
+                                series.Points.Add(pointsArray[i]);
+                                i++;
+                            }
+
+                            form3.Show();
+
+                        }
+                    }
+                }
+            }
+        }
     }
  }
