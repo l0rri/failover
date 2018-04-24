@@ -626,7 +626,46 @@ namespace WindowsFormsApp1
             var bname = dataGridView1.SelectedCells[0].Value;
             var bid = dataGridView1.SelectedCells[6].Value;
 
-            var b4 = 0;
+            var date = DateTime.Today.ToShortDateString();
+            var time = DateTime.UtcNow.ToLocalTime();
+            var time2 = time.ToShortTimeString();
+
+            int morning=0, afternoon=0, evening=0, night=0;
+
+            if (time < DateTime.Parse("12:00:00.000") && time > DateTime.Parse("06:00:00.000") )
+            {
+                morning = 1;
+               
+            }
+            else if (time > DateTime.Parse("12:00:00.000") && time < DateTime.Parse("17:00:00.000"))
+            {
+                afternoon = 1;
+            }
+            else if (time < DateTime.Parse("23:00:00.000") && time > DateTime.Parse("17:00:00.000"))
+            {
+                evening = 1;
+            }
+            else if (time > DateTime.Parse("23:00:00.000") && time < DateTime.Parse("06:00:00.000"))
+            {
+                night = 1;
+            }
+
+            using (var conn = new NpgsqlConnection(buildConnString()))
+            {
+                conn.Open();
+                using (var cmd = new NpgsqlCommand())
+                {
+
+                    cmd.Connection = conn;
+                    cmd.CommandText = "INSERT INTO yelp_checkin VALUES( '" + bid + "', '" + time.DayOfWeek.ToString() + "', '" + morning + "', '" + afternoon + "', '" + evening + "', '" + night + "')";
+
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                    }
+                }
+            }
+            var b = 0;
+
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
