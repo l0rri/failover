@@ -23,7 +23,7 @@ namespace WindowsFormsApp1
         {
             InitializeComponent();
             addStates();
-            adduid();
+            //adduid();
         }
 
         private string buildConnString()
@@ -70,7 +70,7 @@ namespace WindowsFormsApp1
                 using (var cmd = new NpgsqlCommand())
                 {
                     cmd.Connection = conn;
-                    cmd.CommandText = "select distinct user_id from yelp_friends order by user_id";
+                    cmd.CommandText = "select distinct user_id from yelp_user where name='"+uname.Text.ToString() +"' order by user_id";
                     using (var reader = cmd.ExecuteReader())
                     {
 
@@ -438,7 +438,7 @@ namespace WindowsFormsApp1
                     using (var cmd = new NpgsqlCommand())
                     {
                         cmd.Connection = conn;
-                        cmd.CommandText = "SELECT DISTINCT user_id FROM yelp_user where name='" + uname.Text.ToString() + "' limit 1";
+                        cmd.CommandText = "SELECT user_id FROM yelp_user where name='" + uname.Text.ToString() + "'";
                         using (var reader = cmd.ExecuteReader())
                         {
 
@@ -447,7 +447,7 @@ namespace WindowsFormsApp1
                                 int index = listBox1.FindStringExact(reader.GetString(0));
                                 if (index < 0)
                                 {
-                                    MessageBox.Show("Invalid Name");
+                                    //MessageBox.Show("Invalid Name");
                                 }
                                 else
                                 {
@@ -457,6 +457,7 @@ namespace WindowsFormsApp1
                         }
                     }
                     conn.Close();
+                    adduid();
                 }
             }
         }
@@ -633,6 +634,12 @@ namespace WindowsFormsApp1
         {
             //checkin
 
+        }
+
+        private void uAttr_Click(object sender, EventArgs e)
+        {
+            //checkin
+            
         }
 
 

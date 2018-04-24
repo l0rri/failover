@@ -49,7 +49,7 @@
             this.checkedListBox2 = new System.Windows.Forms.CheckedListBox();
             this.FilterPrice = new System.Windows.Forms.CheckedListBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.uAttr = new System.Windows.Forms.Button();
             this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
@@ -317,7 +317,7 @@
             this.groupBox2.Controls.Add(this.checkedListBox2);
             this.groupBox2.Controls.Add(this.FilterPrice);
             this.groupBox2.Controls.Add(this.comboBox1);
-            this.groupBox2.Controls.Add(this.button1);
+            this.groupBox2.Controls.Add(this.uAttr);
             this.groupBox2.Controls.Add(this.checkedListBox1);
             this.groupBox2.Location = new System.Drawing.Point(764, 91);
             this.groupBox2.Name = "groupBox2";
@@ -369,14 +369,14 @@
             this.comboBox1.TabIndex = 10;
             this.comboBox1.Text = "Sort results by...";
             // 
-            // button1
+            // uAttr
             // 
-            this.button1.Location = new System.Drawing.Point(14, 306);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(237, 23);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "Update Search";
-            this.button1.UseVisualStyleBackColor = true;
+            this.uAttr.Location = new System.Drawing.Point(14, 306);
+            this.uAttr.Name = "uAttr";
+            this.uAttr.Size = new System.Drawing.Size(237, 23);
+            this.uAttr.TabIndex = 7;
+            this.uAttr.Text = "Update Search";
+            this.uAttr.UseVisualStyleBackColor = true;
             // 
             // checkedListBox1
             // 
@@ -845,10 +845,10 @@
             // 
             // Categories
             // 
+            this.Categories.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Categories.HeaderText = "Categories";
             this.Categories.Name = "Categories";
             this.Categories.ReadOnly = true;
-            this.Categories.Width = 82;
             // 
             // Business_id
             // 
@@ -911,7 +911,7 @@
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.CheckedListBox checkedListBox2;
         private System.Windows.Forms.CheckedListBox checkedListBox1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button uAttr;
         private System.Windows.Forms.ComboBox bCategory;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button button3;
