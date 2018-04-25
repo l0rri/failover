@@ -23,7 +23,7 @@ namespace WindowsFormsApp1
         {
             InitializeComponent();
             addStates();
-            adduid();
+            //adduid();
         }
 
         private string buildConnString()
@@ -70,7 +70,7 @@ namespace WindowsFormsApp1
                 using (var cmd = new NpgsqlCommand())
                 {
                     cmd.Connection = conn;
-                    cmd.CommandText = "select distinct user_id from yelp_friends order by user_id";
+                    cmd.CommandText = "select distinct user_id from yelp_user where name='"+uname.Text.ToString() +"' order by user_id";
                     using (var reader = cmd.ExecuteReader())
                     {
 
@@ -332,7 +332,34 @@ namespace WindowsFormsApp1
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            //clear previous contents
+            dataGridView1.Rows.Clear();
+            using (var conn = new NpgsqlConnection(buildConnString()))
+            {
+                conn.Open();
+                using (var cmd = new NpgsqlCommand())
+                {
+                    cmd.Connection = conn;
+                    cmd.CommandText = "SELECT name, address, yelp_business.business_id FROM yelp_business_categories, yelp_business, yelp_business_hours WHERE yelp_business.business_id = yelp_business_categories.business_id AND postal_code='" + bZip.SelectedItem.ToString() + "' AND category_name='" + bCategory.SelectedItem.ToString() + "' AND day_of_week='"+ comboBox2.SelectedItem.ToString()  +"'"; //this too
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        dataGridView1.RowTemplate.CreateCells(dataGridView1);
+                        while (reader.Read())
+                        {
+                            DataGridViewRow row = (DataGridViewRow)dataGridView1.RowTemplate.Clone();
+                            row.Cells[0].Value = reader.GetString(0);
+                            row.Cells[1].Value = reader.GetString(1);
+                            row.Cells[2].Value = bState.SelectedItem.ToString();
+                            row.Cells[3].Value = bCity.SelectedItem.ToString();
+                            row.Cells[4].Value = bZip.SelectedItem.ToString();
+                            row.Cells[5].Value = bCategory.SelectedItem.ToString();
+                            row.Cells[6].Value = reader.GetString(2);
+                            dataGridView1.Rows.Add(row);
+                        }
+                    }
+                }
+                conn.Close();
+            }
         }
 
         private void comboBox4_SelectedIndexChanged(object sender, EventArgs e)
@@ -438,7 +465,7 @@ namespace WindowsFormsApp1
                     using (var cmd = new NpgsqlCommand())
                     {
                         cmd.Connection = conn;
-                        cmd.CommandText = "SELECT DISTINCT user_id FROM yelp_user where name='" + uname.Text.ToString() + "' limit 1";
+                        cmd.CommandText = "SELECT user_id FROM yelp_user where name='" + uname.Text.ToString() + "'";
                         using (var reader = cmd.ExecuteReader())
                         {
 
@@ -447,7 +474,7 @@ namespace WindowsFormsApp1
                                 int index = listBox1.FindStringExact(reader.GetString(0));
                                 if (index < 0)
                                 {
-                                    MessageBox.Show("Invalid Name");
+                                    //MessageBox.Show("Invalid Name");
                                 }
                                 else
                                 {
@@ -457,6 +484,7 @@ namespace WindowsFormsApp1
                         }
                     }
                     conn.Close();
+                    adduid();
                 }
             }
         }
@@ -510,7 +538,7 @@ namespace WindowsFormsApp1
 
         private void button4_Click(object sender, EventArgs e)
         {
-            //checkins chart
+            //business by zip chart
             Form3 form3 = new Form3();
 
 
@@ -623,8 +651,6 @@ namespace WindowsFormsApp1
         private void button2_Click(object sender, EventArgs e)
         {
             //checkin
-            var bname = dataGridView1.SelectedCells[0].Value;
-            var bid = dataGridView1.SelectedCells[6].Value;
 
             var date = DateTime.Today.ToShortDateString();
             var time = DateTime.UtcNow.ToLocalTime();
@@ -668,9 +694,12 @@ namespace WindowsFormsApp1
 
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void uAttr_Click(object sender, EventArgs e)
         {
-            sBus.Text = (string) dataGridView1.SelectedCells[0].Value;
+            //checkin
+            
         }
+
+
     }
  }
