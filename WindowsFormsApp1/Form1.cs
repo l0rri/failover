@@ -310,9 +310,9 @@ namespace WindowsFormsApp1
                                 row.Cells[1].Value = reader.GetString(1);
                                 row.Cells[2].Value = bState.SelectedItem.ToString();
                                 row.Cells[3].Value = bCity.SelectedItem.ToString();
-                                row.Cells[4].Value = bZip.SelectedItem.ToString();
-                                row.Cells[5].Value = bCategory.SelectedItem.ToString();
-                                row.Cells[6].Value = reader.GetString(2);
+                                //row.Cells[4].Value = bZip.SelectedItem.ToString();
+                                //row.Cells[5].Value = bCategory.SelectedItem.ToString();
+                                row.Cells[11].Value = reader.GetString(2);
                                 dataGridView1.Rows.Add(row);
                             }
                         }
@@ -449,6 +449,11 @@ namespace WindowsFormsApp1
         }
 
         private void uname_Click(object sender, EventArgs e)
+        {
+            uname.Clear();
+        }
+
+        private void textBox1_Click(object sender, EventArgs e)
         {
             uname.Clear();
         }
@@ -652,7 +657,7 @@ namespace WindowsFormsApp1
         {
             //checkin
             var bname = dataGridView1.SelectedCells[0].Value;
-            var bid = dataGridView1.SelectedCells[6].Value;
+            var bid = dataGridView1.SelectedCells[11].Value;
 
             var date = DateTime.Today.ToShortDateString();
             var time = DateTime.UtcNow.ToLocalTime();
@@ -692,7 +697,8 @@ namespace WindowsFormsApp1
                     }
                 }
             }
-            
+
+            MessageBox.Show("Checked in.");
 
         }
 
@@ -704,7 +710,7 @@ namespace WindowsFormsApp1
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            sBus.Text = (string)dataGridView1.SelectedCells[0].Value;
+            sBus.Text = dataGridView1.SelectedCells[0].Value.ToString();
         }
 
         private void label9_Click(object sender, EventArgs e)
