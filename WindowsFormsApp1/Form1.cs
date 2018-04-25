@@ -664,7 +664,7 @@ namespace WindowsFormsApp1
                     }
                 }
             }
-            var b = 0;
+            
 
         }
 
