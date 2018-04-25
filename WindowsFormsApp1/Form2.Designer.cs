@@ -59,26 +59,28 @@
             this.Column7});
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.Size = new System.Drawing.Size(984, 451);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // Column1
             // 
+            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.Column1.DefaultCellStyle = dataGridViewCellStyle1;
-            this.Column1.Frozen = true;
             this.Column1.HeaderText = "Date";
             this.Column1.Name = "Column1";
-            this.Column1.Width = 75;
+            this.Column1.ReadOnly = true;
             // 
             // Column2
             // 
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.Column2.DefaultCellStyle = dataGridViewCellStyle2;
-            this.Column2.Frozen = true;
             this.Column2.HeaderText = "UserName";
             this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
             this.Column2.Width = 82;
             // 
             // Column3
@@ -86,9 +88,9 @@
             this.Column3.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.Column3.DefaultCellStyle = dataGridViewCellStyle3;
-            this.Column3.Frozen = true;
             this.Column3.HeaderText = "Stars";
             this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
             this.Column3.Width = 50;
             // 
             // Column4
@@ -98,6 +100,7 @@
             this.Column4.DefaultCellStyle = dataGridViewCellStyle4;
             this.Column4.HeaderText = "Text";
             this.Column4.Name = "Column4";
+            this.Column4.ReadOnly = true;
             this.Column4.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.Column4.Width = 500;
             // 
@@ -108,6 +111,7 @@
             this.Column5.DefaultCellStyle = dataGridViewCellStyle5;
             this.Column5.HeaderText = "Funny";
             this.Column5.Name = "Column5";
+            this.Column5.ReadOnly = true;
             this.Column5.Width = 61;
             // 
             // Column6
@@ -117,6 +121,7 @@
             this.Column6.DefaultCellStyle = dataGridViewCellStyle6;
             this.Column6.HeaderText = "Useful";
             this.Column6.Name = "Column6";
+            this.Column6.ReadOnly = true;
             this.Column6.Width = 62;
             // 
             // Column7
@@ -126,6 +131,7 @@
             this.Column7.DefaultCellStyle = dataGridViewCellStyle7;
             this.Column7.HeaderText = "Cool";
             this.Column7.Name = "Column7";
+            this.Column7.ReadOnly = true;
             this.Column7.Width = 53;
             // 
             // Form2
