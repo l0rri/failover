@@ -651,6 +651,8 @@ namespace WindowsFormsApp1
         private void button2_Click(object sender, EventArgs e)
         {
             //checkin
+            var bname = dataGridView1.SelectedCells[0].Value;
+            var bid = dataGridView1.SelectedCells[6].Value;
 
             var date = DateTime.Today.ToShortDateString();
             var time = DateTime.UtcNow.ToLocalTime();
@@ -698,6 +700,11 @@ namespace WindowsFormsApp1
         {
             //checkin
             
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            sBus.Text = (string)dataGridView1.SelectedCells[0].Value;
         }
 
 
