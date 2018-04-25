@@ -722,5 +722,10 @@ namespace WindowsFormsApp1
         {
 
         }
+
+        private void label8_Click_1(object sender, EventArgs e)
+        {
+
+        }
     }
  }

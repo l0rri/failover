@@ -548,9 +548,9 @@
             this.groupBox9.Controls.Add(this.label5);
             this.groupBox9.Controls.Add(this.uvote_useful);
             this.groupBox9.Controls.Add(this.uvote_cool);
-            this.groupBox9.Location = new System.Drawing.Point(649, 17);
+            this.groupBox9.Location = new System.Drawing.Point(639, 15);
             this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(142, 113);
+            this.groupBox9.Size = new System.Drawing.Size(142, 115);
             this.groupBox9.TabIndex = 5;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "Votes";
@@ -834,9 +834,9 @@
             this.groupBox6.Controls.Add(this.slat);
             this.groupBox6.Controls.Add(this.label9);
             this.groupBox6.Controls.Add(this.label8);
-            this.groupBox6.Location = new System.Drawing.Point(797, 20);
+            this.groupBox6.Location = new System.Drawing.Point(787, 15);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(225, 110);
+            this.groupBox6.Size = new System.Drawing.Size(235, 115);
             this.groupBox6.TabIndex = 6;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Set Location";
@@ -844,16 +844,17 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(6, 21);
+            this.label8.Location = new System.Drawing.Point(49, 21);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(48, 13);
             this.label8.TabIndex = 0;
             this.label8.Text = "Latitude:";
+            this.label8.Click += new System.EventHandler(this.label8_Click_1);
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(6, 47);
+            this.label9.Location = new System.Drawing.Point(40, 49);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(57, 13);
             this.label9.TabIndex = 1;
@@ -864,21 +865,21 @@
             // 
             this.slat.Location = new System.Drawing.Point(103, 18);
             this.slat.Name = "slat";
-            this.slat.Size = new System.Drawing.Size(100, 20);
+            this.slat.Size = new System.Drawing.Size(126, 20);
             this.slat.TabIndex = 2;
             // 
             // slon
             // 
             this.slon.Location = new System.Drawing.Point(103, 44);
             this.slon.Name = "slon";
-            this.slon.Size = new System.Drawing.Size(100, 20);
+            this.slon.Size = new System.Drawing.Size(126, 20);
             this.slon.TabIndex = 3;
             // 
             // uloc
             // 
-            this.uloc.Location = new System.Drawing.Point(39, 77);
+            this.uloc.Location = new System.Drawing.Point(9, 82);
             this.uloc.Name = "uloc";
-            this.uloc.Size = new System.Drawing.Size(144, 23);
+            this.uloc.Size = new System.Drawing.Size(220, 23);
             this.uloc.TabIndex = 4;
             this.uloc.Text = "Update Location";
             this.uloc.UseVisualStyleBackColor = true;
