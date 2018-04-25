@@ -707,6 +707,14 @@ namespace WindowsFormsApp1
             sBus.Text = (string)dataGridView1.SelectedCells[0].Value;
         }
 
+        private void label9_Click(object sender, EventArgs e)
+        {
 
+        }
+
+        private void uloc_Click(object sender, EventArgs e)
+        {
+
+        }
     }
  }
